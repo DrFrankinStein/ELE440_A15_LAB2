@@ -14,7 +14,7 @@ using namespace std;
 #ifndef ARBRE_HPP
 #define	ARBRE_HPP
 
-int RechercheArbre(int *tableau, int cle, int N);
+void addnode(int key);
 
 #endif	/* ARBRE_HPP */
 

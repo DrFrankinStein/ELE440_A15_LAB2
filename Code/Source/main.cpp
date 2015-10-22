@@ -21,8 +21,15 @@ using namespace std;
  */
 int main(int argc, char** argv) 
 {
-    int tableau[20] = {0,2,3,5,6,7,9,11,15,28,29,40,42,54,67,68,69,400,2043,5000};
-    int cle = RechercheSequentielle(tableau, 40, 20);
+    int tableau[20] = {30,24,3,5,66,7,9,11,15,28,29,40,42,54,67,68,69,400,2043,5000};
+    BinaryTree tree;
+    int i;
+    
+    for (i = 0; i < 20; i++)
+    {
+        tree.addnode(tableau[i],i);
+    }
+    int cle = tree.findNode(40);
     
       cout << "tableau = [" << cle << "] => " << tableau[cle] << endl;
     
