@@ -17,8 +17,11 @@
 #include "../Header/sequentielle.hpp"
 #include "../Header/binaire.hpp"
 #include "../Header/hash.hpp"
+#include "../Header/arbre.hpp"
+
 #include "../Header/CommonFunc.hpp"
 #include "../Header/TriFusion.hpp"
+
 
 //void test(void);
 

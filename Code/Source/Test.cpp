@@ -161,7 +161,25 @@ void Testing::LoadModeConfig(void)
                 
             case TREE_SHORT: 
             case TREE_LONG:
+            {
                 cout << "\n\r" << "TREE" << "\n\n\r";
+                BinaryTree bin;
+                for(int i =0; i<N; i++)
+                {
+                    bin.addnode(DataTable[i],i);
+                }
+                for(int i =0; i<K; i++)
+                {
+                    ResultTable[i] = bin.findNode(SearchTable[i]);
+                    if(ResultTable[i]!=-1)
+                    {
+                        count++;
+                        printf("%i %i %i %i \n\n\r",count,i,SearchTable[i], ResultTable[i]);
+                    }
+                }
+                
+                
+            }
                 
                 break;    
                 

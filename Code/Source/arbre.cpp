@@ -6,84 +6,83 @@
 
 using namespace std;
 
-    Node::Node(int key, int number)
-    {
-        this->key = key;
-        
-        this->number = number;
-    }
-    Node::~Node(void)
-    {
-        delete leftChild;
-        delete rightChild;
-    }
+Node::Node(int key, int number)
+{
+	this->key = key;
+	this->number = number;
+}
+Node::~Node(void)
+{
+	delete leftChild;
+	delete rightChild;
+}
 
-    void BinaryTree::addnode(int key, int number)
+void BinaryTree::addnode(int key, int number)
+{
+    //Node * newNode = new Node(key, number);
+    bool exit=false;
+    
+    if(root==NULL)
     {
-        Node * newNode = new Node(key, number);
-        
-        if (root == NULL)
-        {
-            root = newNode;
-        }
-        else
-        {
-            Node * focusNode = root;
-            
-            Node * parent;
-            
-            while(true)
-            {
-                parent = focusNode;
-                
-                if(key < focusNode->key)
-                {
-                    if(focusNode->leftChild!=NULL)
-                        focusNode = focusNode->leftChild;
-                    
-                    else if(focusNode->leftChild == NULL)
-                    {
-                        parent->leftChild = newNode;
-                        return;
-                    }
-                }
-                else
-                {
-                    if(focusNode->rightChild!=NULL)
-                        focusNode = focusNode->rightChild;
-                    
-                    else if (focusNode->rightChild == NULL)
-                    {
-                        parent->rightChild = newNode;
-                        return;
-                    }
-                }
-            }
-            
-        }
+        root = new Node(key, number);
     }
     
-    int BinaryTree::findNode(int key)
+    else
     {
-        Node * focusNode = root;
-        
-        while(focusNode->key != key)
-        {
+    	Node * focusNode = root;	
+    	Node * parent;
+		
+    	while(!exit)
+    	{
+            parent = focusNode;
+			
             if(key < focusNode->key)
             {
+                if(focusNode->leftChild!=NULL)
                 focusNode = focusNode->leftChild;
+				
+                else if(focusNode->leftChild == NULL)
+                {
+                    parent->leftChild = new Node(key, number);
+                    exit=true;
+		}
             }
             else
             {
-                focusNode = focusNode->rightChild;
+                if(focusNode->rightChild!=NULL)
+                    focusNode = focusNode->rightChild;
+				
+		else if (focusNode->rightChild == NULL)
+		{
+                    parent->rightChild = new Node(key, number);
+                    exit = true;
+		}
             }
-            
-            if(focusNode == NULL)
-            {
-                return -1;
-            }
-        }
-        return focusNode->number;
+	}	
     }
-    
-    
+}
+
+int BinaryTree::findNode(int key)
+{
+    Node * focusNode = root;
+	
+    while(focusNode->key != key)
+    {
+    	if(key < focusNode->key)
+    	{
+            focusNode = focusNode->leftChild;
+	}
+	else
+	{
+            focusNode = focusNode->rightChild;
+	}
+		
+        if(focusNode == NULL)
+	{
+            return -1;
+	}
+    }
+    return focusNode->number;
+}
+
+
