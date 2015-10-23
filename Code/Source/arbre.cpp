@@ -12,14 +12,19 @@ public :
     
     int key;
     int number;
-    Node leftChild;
-    Node rightChild;
+    Node *  leftChild;
+    Node * rightChild;
     
     Node(int key, int number)
     {
         this->key = key;
         
         this->number = number;
+    }
+    ~Node(void)
+    {
+        delete leftChild;
+        delete rightChild;
     }
 };
 
@@ -28,11 +33,11 @@ public :
 class BinaryTree
 {
 private :
-    Node root;
+    Node * root;
 public :
     void addnode(int key, int number)
     {
-        Node newNode = new Node(key, number);
+        Node * newNode = new Node(key, number);
         
         if (root == NULL)
         {
@@ -40,31 +45,31 @@ public :
         }
         else
         {
-            Node focusNode = root;
+            Node * focusNode = root;
             
-            Node parent;
+            Node * parent;
             
             while(true)
             {
                 parent = focusNode;
                 
-                if(key < focusNode.key)
+                if(key < focusNode->key)
                 {
-                    focusNode = focusNode.leftChild;
+                    focusNode = focusNode->leftChild;
                     
                     if(focusNode == NULL)
                     {
-                        parent.leftChild = newNode;
+                        parent->leftChild = newNode;
                         return;
                     }
                 }
                 else
                 {
-                    focusNode = focusNode.rightChild;
+                    focusNode = focusNode->rightChild;
                     
                     if (focusNode == NULL)
                     {
-                        parent.rightChild = newNode;
+                        parent->rightChild = newNode;
                         return;
                     }
                 }
@@ -75,17 +80,17 @@ public :
     
     int findNode(int key)
     {
-        Node focusNode = root;
+        Node * focusNode = root;
         
-        while(focusNode.key != key)
+        while(focusNode->key != key)
         {
-            if(key < focusNode.key)
+            if(key < focusNode->key)
             {
-                focusNode = focusNode.leftChild;
+                focusNode = focusNode->leftChild;
             }
             else
             {
-                focusNode = focusNode.rightChild;
+                focusNode = focusNode->rightChild;
             }
             
             if(focusNode == NULL)
@@ -93,7 +98,7 @@ public :
                 return NULL;
             }
         }
-        return focusNode.number;
+        return focusNode->number;
     }
     
 };

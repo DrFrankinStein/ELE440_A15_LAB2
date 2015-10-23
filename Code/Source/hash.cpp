@@ -6,7 +6,7 @@
 
 using namespace std;
 
-hash::hash()
+hashH::hashH(void)
 {
     for(int i = 0; i < tableSize; i++)
     {
@@ -19,7 +19,7 @@ hash::hash()
     }
 }
 
-int hash::Hash(string key)
+int hashH::Hashing(string key)
 {
     int index;
     
@@ -35,9 +35,9 @@ int hash::Hash(string key)
     return index;
 }
 
-void hash::AddItem(string name, string drink)
+void hashH::AddItem(string name, string drink)
 {
-    int index = Hash(name);
+    int index = Hashing(name);
     if (HashTable[index]->name == "empty")
     {
         HashTable[index]->name = name;
@@ -58,7 +58,7 @@ void hash::AddItem(string name, string drink)
     }
 }
 
-int hash::NumberOfItemsInIndex(int index)
+int hashH::NumberOfItemsInIndex(int index)
 {
     int count = 0;
     if(HashTable[index]->name == "empty")
@@ -78,7 +78,7 @@ int hash::NumberOfItemsInIndex(int index)
     }
 }
 
-void hash::PrintTable()
+void hashH::PrintTable()
 {
     int number;
     for(int i = 0; i < tableSize; i++)
@@ -93,7 +93,7 @@ void hash::PrintTable()
     }
 }
 
-void hash::PrintItemsInIndex(int index)
+void hashH::PrintItemsInIndex(int index)
 {
     item* Ptr = HashTable[index];
     

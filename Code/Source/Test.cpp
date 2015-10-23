@@ -24,7 +24,7 @@ Testing::Testing(int argc, char** argv)
     if(nbArg>1)
         for(int i = 0;(i<END_COMMAND_T)&&(cmd==END_COMMAND_T);i++)
         {    
-            //cout << listArg[1] << " vs " << command_list_t[i] << "\n\r";
+            cout << listArg[1] << " vs " << command_list_t[i] << "\n\r";
             if(!strcmp(listArg[1],command_list_t[i]))
                 cmd = (command_t)i;
         }
@@ -43,6 +43,7 @@ Testing::Testing(int argc, char** argv)
         case LOAD_SHORT:
         case LOAD_LONG:
             cout << "\n\r" << "Use values loaded from a file" << "\n\n\r";
+            LoadModeConfig();
             break;
         
         // Mode aide
@@ -63,7 +64,7 @@ Testing::Testing(int argc, char** argv)
  */
 Testing::~Testing(void) 
 {
-
+    
 }
 
 /**
@@ -118,5 +119,179 @@ void Testing::AutoModeOptionConfig(int iDArg)
 
 void Testing::LoadModeConfig(void)
 {
+    int count=0;
+    if(nbArg==6)
+    {
+        cout << "\n\r" << "OK" << "\n\n\r";
+        LoadT1(listArg[2]);
+        LoadT2(listArg[3]);
+        ResultTable = new int[K];
+        
+        for(int i = 0;(i<END_ALGO_T)&&(algo==END_ALGO_T);i++)
+        {    
+            cout << listArg[4] << " vs " << algo_list_t[i] << "\n\r";
+            if(!strcmp(listArg[4],algo_list_t[i]))
+                algo = (algo_t)i;
+        }
+        
+        switch(algo)
+        {
+            case HASH_SHORT: 
+            case HASH_LONG:
+                cout << "\n\r" << "HASH TABLE" << "\n\n\r";
+                
+                break;
+                
+            case SEQ_SHORT: 
+            case SEQ_LONG:
+                cout << "\n\r" << "SEQ" << "\n\n\r";
+                for(int i =0; i<K; i++)
+                {
+                    ResultTable[i] = RechercheSequentielle(DataTable,SearchTable[i],N);
+                    if(ResultTable[i]!=-1)
+                    {
+                        count++;
+                        printf("%i %i %i %i \n\n\r",count,i,SearchTable[i], ResultTable[i]);
+                        
+                    }
+                }
+                break;
+                
+            case BIN_SHORT:
+            case BIN_LONG:
+                cout << "\n\r" << "BINARY" << "\n\n\r";
+                
+                break;
+        }
+
+        for(int i =0;i<N;i++)
+        {
+            printf("%i ", DataTable[i]);
+        }
+        printf("\n\n\r");
+;
+    }
+    else if(nbArg<6)
+    {
+        cout << "\n\r" << "Not enough argument" << "\n\n\r"; 
+    }
+    else
+    {
+        cout << "\n\r" << "Too much argument" << "\n\n\r";
+    }
+}
+
+void Testing::LoadT1(const char* address)
+{
+    FILE * textfile;
+    char c;
+    int index=0;
+    int tmp;
+    string buffer="";
     
+    textfile = fopen (address,"r");
+    if (textfile == NULL) 
+        perror ("Error opening file");
+    else 
+    {
+        do 
+        {
+            c = fgetc (textfile);
+            if(c != EOF)
+            {
+                if(c>='0'&& c<='9')
+                {
+                    buffer+=c;
+                }
+                else
+                {
+                    if(buffer!="")
+                    {
+                        sscanf(buffer.c_str(),"%i",&tmp); 
+                        switch(index)
+                        {
+                            case 0 :
+                                N = tmp;
+                                DataTable = new int[tmp];
+                                break;
+                            case 1 :
+                                R = tmp;
+                                break;
+                            case 2 :
+                                D = tmp;
+                                break;
+                            default :
+                                DataTable[index-3] = tmp;
+                                break;
+                        }
+                        buffer="";
+                        index++;
+                    }    
+                }
+            }
+            else
+                if(buffer!="")
+                {
+                    sscanf(buffer.c_str(),"%i",&tmp);
+                    DataTable[index-3] = tmp;
+                }
+        } 
+        while (c != EOF);
+    fclose (textfile);
+    }
+}
+
+void Testing::LoadT2(const char* address)
+{
+    FILE * textfile;
+    char c;
+    int index=0;
+    int tmp;
+    string buffer="";
+    
+    textfile = fopen (address,"r");
+    if (textfile == NULL) 
+        perror ("Error opening file");
+    else 
+    {
+        do 
+        {
+            c = fgetc (textfile);
+            if(c != EOF)
+            {
+                if(c>='0'&& c<='9')
+                {
+                    buffer+=c;
+                }
+                else
+                {
+                    if(buffer!="")
+                    {
+                        sscanf(buffer.c_str(),"%i",&tmp); 
+                        switch(index)
+                        {
+                            case 0 :
+                                K = tmp;
+                                SearchTable = new int[tmp];
+                                break;
+                   
+                            default :
+                                SearchTable[index-1] = tmp;
+                                break;
+                        }
+                        buffer="";
+                        index++;
+                    }    
+                }
+            }
+            else
+                if(buffer!="")
+                {
+                    sscanf(buffer.c_str(),"%i",&tmp);
+                    DataTable[index-3] = tmp;
+                }
+        } 
+        while (c != EOF);
+    fclose (textfile);
+    }
 }

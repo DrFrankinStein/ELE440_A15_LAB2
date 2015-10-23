@@ -14,16 +14,8 @@ using namespace std;
 #ifndef HASH_HPP
 #define	HASH_HPP
 
-class hash
+class hashH
 {
-public:
-    hash();
-    int Hash(string key);
-    void AddItem(string name, string drink);
-    int NumberOfItemsInIndex(int index);
-    void PrintTable();
-    void PrintItemsInIndex(int index);
-    
 private:
     
     static const int tableSize = 10;
@@ -35,7 +27,17 @@ private:
         item* next;
     };
     
-    item* HashTable[tableSize];
+    item* HashTable[tableSize];    
+    
+public:
+    hashH(void);
+    int Hashing(string key);
+    void AddItem(string name, string drink);
+    int NumberOfItemsInIndex(int index);
+    void PrintTable();
+    void PrintItemsInIndex(int index);
+    
+
 };
 
 

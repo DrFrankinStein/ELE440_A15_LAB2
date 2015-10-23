@@ -11,14 +11,17 @@
 #include <cstdlib>
 #include <iostream>
 #include <string.h>
+#include <stdio.h>
+
+#include "../Header/sequentielle.hpp"
 
 //void test(void);
 
 using namespace std;
 
-// -a/--auto [-N {X}] [-R {X}] [-D {X}] -algo [OUTPUTFILENAME]
-// -l/--load {INPUT FILE} -algo [OUTPUTFILENAME]
-// -?/--help
+// -a/--auto -N {X} -R {X} -D {X} {SearchFile} -algo [OutputFile] //11
+// -l/--load {InputFile} {SearchFile} -algo [OutputFile] //6
+// -?/--help  //2
 
 class Testing
 {
@@ -31,6 +34,11 @@ private:
     
     int nbArg;
     char** listArg;
+    
+    int *DataTable;//T1
+    int *SearchTable;//T2
+    int *ResultTable;//T3
+    int K, N, R, D;
     
     //all (static here???)
     enum command_t {AUTO_SHORT=0, AUTO_LONG, LOAD_SHORT, LOAD_LONG, 
@@ -54,16 +62,13 @@ private:
     const char* option_list_t[END_OPTION_T] = {"-N","-R","-D"};
     option_t option = END_OPTION_T;
     
-    int N=1000;
-    int R=1000;
-    int D=50;
-    
     //load mode
-    char* inputFile;
-    
     void LoadModeConfig(void);
     void AutoModeConfig(void);
     void AutoModeOptionConfig(int iDArg);
+    
+    void LoadT1(const char* address);
+    void LoadT2(const char* address);
 };
 
 #endif	/* TEST_HPP */
