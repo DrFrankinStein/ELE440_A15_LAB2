@@ -112,30 +112,27 @@ void hashH::PrintItemsInIndex(int index)
     
 }
 
-int hashH::RechercheHash(int *tableau, int cle, int N)
+int hashH::RechercheHash(int cle, int N)
+{
+    int index;
+    bool exit= false;
+        
+    index = Hashing(cle);
+        
+    item* Ptr = HashTable[index];
+        
+    while(Ptr->cle != cle && Ptr->cle != -1 && exit!=true)
     {
-        int index;
-        int i;
-        
-        for(i = 0; i < N; i++)
-        {
-            AddItem(tableau[i],i);
-        }
-        
-        index = Hashing(cle);
-        
-        item* Ptr = HashTable[index];
-        
-        while(Ptr->cle != cle && Ptr->cle != -1)
-        {
+        if(Ptr->next==NULL)
+            exit = true;
+        else
             Ptr = Ptr->next;
-        }
-        
-        if (Ptr->cle == -1)
-        {
-            return -1;
-        }
-        
-        return Ptr->i;
     }
-//
+        
+    if (Ptr->cle == -1 || exit == true)
+    {
+        return -1;
+    }
+    else    
+        return Ptr->i;
+}

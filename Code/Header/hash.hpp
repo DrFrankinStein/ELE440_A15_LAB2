@@ -18,7 +18,7 @@ class hashH
 {
 private:
     
-    static const int tableSize = 10;
+    static const int tableSize = 100;
     
     struct item
     {
@@ -36,7 +36,7 @@ public:
     int NumberOfItemsInIndex(int index);
     void PrintTable();
     void PrintItemsInIndex(int index);
-    int RechercheHash(int *tableau, int cle, int N);
+    int RechercheHash(int cle, int N);
 
 };
 //

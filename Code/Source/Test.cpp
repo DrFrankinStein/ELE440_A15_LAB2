@@ -138,9 +138,26 @@ void Testing::LoadModeConfig(void)
         {
             case HASH_SHORT: 
             case HASH_LONG:
+            {    
                 cout << "\n\r" << "HASH TABLE" << "\n\n\r";
                 
-                break;
+                hashH hashy;
+                for(int i = 0; i < N; i++)
+                {
+                    hashy.AddItem(DataTable[i],i);
+                }
+                for(int i =0; i<K; i++)
+                {
+                    ResultTable[i] = hashy.RechercheHash(SearchTable[i],N);
+                    if(ResultTable[i]!=-1)
+                    {
+                        count++;
+                        printf("%i %i %i %i \n\n\r",count,i,SearchTable[i], ResultTable[i]);
+                        
+                    }
+                }
+            }    
+            break;
                 
             case TREE_SHORT: 
             case TREE_LONG:
@@ -150,6 +167,7 @@ void Testing::LoadModeConfig(void)
                 
             case SEQ_SHORT: 
             case SEQ_LONG:
+            {
                 cout << "\n\r" << "SEQ" << "\n\n\r";
                 for(int i =0; i<K; i++)
                 {
@@ -161,10 +179,12 @@ void Testing::LoadModeConfig(void)
                         
                     }
                 }
-                break;
+            }
+            break;
                 
             case BIN_SHORT:
             case BIN_LONG:
+            {    
                 cout << "\n\r" << "BINARY" << "\n\n\r";
                 TriParFusion(DataTable, 0, N-1);
                 for(int i =0; i<K; i++)
@@ -176,7 +196,8 @@ void Testing::LoadModeConfig(void)
                         //printf("%i %i %i %i \n\n\r",count,i,SearchTable[i], ResultTable[i]);
                     }
                 }
-                break;
+            }
+            break;
         }
         printf("K = %i, Count = %i\n\n\r",K,count);
         SaveT3(listArg[5]);
@@ -311,13 +332,24 @@ void Testing::SaveT3(const char* address)
     FILE * textfile;
       
     textfile = fopen (address,"w");
+    
     if(textfile)
     {
-        fprintf(textfile,"%i\t%i\n",K,count);
+        //Stats
+        fprintf(textfile,"N=%i\tR=%i\tD=%i\tK=%i\tNBRE DE DONNÉES TROUVÉES = %i\n\n",N,R,D,K,count);
+        //T1
+        for(int i =0; i<(N-1);i++)
+            fprintf(textfile,"%i\t",DataTable[i]);
+        fprintf(textfile,"%i\n\n",DataTable[N-1]);
+        //T2
+        for(int i =0; i<(K-1);i++)
+            fprintf(textfile,"%i\t",SearchTable[i]);
+        fprintf(textfile,"%i\n\n",SearchTable[K-1]);
+        //T3
         for(int i =0; i<(K-1);i++)
             fprintf(textfile,"%i\t",ResultTable[i]);
-        fprintf(textfile,"%i",ResultTable[K-1]);
-        
+        fprintf(textfile,"%i",ResultTable[K-1]);    
     }
+    
     fclose(textfile);
 }
