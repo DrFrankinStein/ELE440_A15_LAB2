@@ -25,7 +25,7 @@
 
 using namespace std;
 
-
+/*
 int * LoadT1(const char* address, int* N , int* R, int* D)
 {
     FILE * textfile;
@@ -132,7 +132,7 @@ int * LoadT2(const char* address, int* N)
     }
     return T2;
 }
-
+/*
 /*
  * 
  */

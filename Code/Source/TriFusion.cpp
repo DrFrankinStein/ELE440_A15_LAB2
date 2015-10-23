@@ -1,4 +1,4 @@
-#include "TriFusion.h"
+#include "../Header/TriFusion.hpp"
 
 //LIVRE p. 27+30
 Barometre Fusion(int *Donnees, int indexPremier, int indexDernier, int indexMilieu)

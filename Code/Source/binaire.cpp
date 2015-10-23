@@ -22,8 +22,11 @@ int RechercheBinaire(int *tableau, int cle, int N)
         {
             fin = milieu - 1;
         }
-        milieu = (fin + debut)/2;
+        milieu = (fin + debut)/2;  
     }
     
-    return milieu; // retourne -1 si la clé n'a pas été trouvée
+    if(tableau[milieu] == cle)
+        return milieu;
+    else
+        return -1; // retourne -1 si la clé n'a pas été trouvée
 }

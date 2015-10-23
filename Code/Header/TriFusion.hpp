@@ -1,7 +1,7 @@
 #ifndef TRI_FUSION_H
 #define	TRI_FUSION_H
 
-#include "CommonFunc.h"
+#include "../Header/CommonFunc.hpp"
 
 Barometre TriParFusion(int *Donnees, int indexPremier, int indexDernier);
 
