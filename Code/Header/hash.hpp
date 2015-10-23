@@ -39,7 +39,7 @@ public:
     int RechercheHash(int *tableau, int cle, int N);
 
 };
-
+//
 
 #endif	/* HASH_HPP */
 

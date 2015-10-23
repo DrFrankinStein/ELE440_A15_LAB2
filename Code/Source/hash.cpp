@@ -138,3 +138,4 @@ int hashH::RechercheHash(int *tableau, int cle, int N)
         
         return Ptr->i;
     }
+//
