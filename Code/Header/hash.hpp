@@ -22,8 +22,8 @@ private:
     
     struct item
     {
-        string name;
-        string drink;
+        int cle;
+        int i;
         item* next;
     };
     
@@ -31,12 +31,12 @@ private:
     
 public:
     hashH(void);
-    int Hashing(string key);
-    void AddItem(string name, string drink);
+    int Hashing(int cle);
+    void AddItem(int cle, int i);
     int NumberOfItemsInIndex(int index);
     void PrintTable();
     void PrintItemsInIndex(int index);
-    
+    int RechercheHash(int *tableau, int cle, int N);
 
 };
 

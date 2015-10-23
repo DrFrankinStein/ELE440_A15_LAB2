@@ -11,44 +11,38 @@ hashH::hashH(void)
     for(int i = 0; i < tableSize; i++)
     {
         HashTable[i] = new item;
-        HashTable[i]->name = "empty";
-        HashTable[i]->drink = "empty";
+        HashTable[i]->cle = -1;
+        HashTable[i]->i = -1;
         HashTable[i]->next = NULL;
         
         
     }
 }
 
-int hashH::Hashing(string key)
+int hashH::Hashing(int cle)
 {
+    
     int index;
     
-    int hash = 0;
-    
-    for (int i = 0; i < key.length(); i++)
-    {
-        hash = hash + (int)key[i];
-    }
-    
-    index = hash % tableSize;
+    index = cle % tableSize;
     
     return index;
 }
 
-void hashH::AddItem(string name, string drink)
+void hashH::AddItem(int cle, int i)
 {
-    int index = Hashing(name);
-    if (HashTable[index]->name == "empty")
+    int index = Hashing(cle);
+    if (HashTable[index]->cle == -1)
     {
-        HashTable[index]->name = name;
-        HashTable[index]->drink = drink;
+        HashTable[index]->cle = cle;
+        HashTable[index]->i = i;
     }
     else
     {
         item* Ptr = HashTable[index];
         item* n = new item;
-        n->name = name;
-        n->drink = drink;
+        n->cle = cle;
+        n->i = i;
         n->next = NULL;
         while(Ptr->next != NULL)
         {
@@ -61,7 +55,7 @@ void hashH::AddItem(string name, string drink)
 int hashH::NumberOfItemsInIndex(int index)
 {
     int count = 0;
-    if(HashTable[index]->name == "empty")
+    if(HashTable[index]->cle == -1)
     {
         return count;
     }
@@ -97,7 +91,7 @@ void hashH::PrintItemsInIndex(int index)
 {
     item* Ptr = HashTable[index];
     
-    if(Ptr->name == "empty")
+    if(Ptr->cle == -1)
     {
         cout << "index = " << index << "is empty";
     }
@@ -108,10 +102,39 @@ void hashH::PrintItemsInIndex(int index)
         while (Ptr != NULL)
         {
             cout << "-----------------\n";
-            cout << Ptr->name << endl;
-            cout << Ptr->drink << endl;
+            cout << Ptr->cle << endl;
+            cout << Ptr->i << endl;
             cout << "-----------------\n";
             Ptr = Ptr->next;
         }
     }
+    
+    
 }
+
+int hashH::RechercheHash(int *tableau, int cle, int N)
+    {
+        int index;
+        int i;
+        
+        for(i = 0; i < N; i++)
+        {
+            AddItem(tableau[i],i);
+        }
+        
+        index = Hashing(cle);
+        
+        item* Ptr = HashTable[index];
+        
+        while(Ptr->cle != cle && Ptr->cle != -1)
+        {
+            Ptr = Ptr->next;
+        }
+        
+        if (Ptr->cle == -1)
+        {
+            return -1;
+        }
+        
+        return Ptr->i;
+    }
