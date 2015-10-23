@@ -12,8 +12,12 @@
 #include <iostream>
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "../Header/sequentielle.hpp"
+#include "../Header/binaire.hpp"
+#include "../Header/CommonFunc.hpp"
+#include "../Header/TriFusion.hpp"
 
 //void test(void);
 
@@ -39,6 +43,7 @@ private:
     int *SearchTable;//T2
     int *ResultTable;//T3
     int K, N, R, D;
+    int count=0;
     
     //all (static here???)
     enum command_t {AUTO_SHORT=0, AUTO_LONG, LOAD_SHORT, LOAD_LONG, 
@@ -69,6 +74,7 @@ private:
     
     void LoadT1(const char* address);
     void LoadT2(const char* address);
+    void SaveT3(const char* address);
 };
 
 #endif	/* TEST_HPP */

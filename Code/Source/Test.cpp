@@ -119,7 +119,7 @@ void Testing::AutoModeOptionConfig(int iDArg)
 
 void Testing::LoadModeConfig(void)
 {
-    int count=0;
+    count=0;
     if(nbArg==6)
     {
         cout << "\n\r" << "OK" << "\n\n\r";
@@ -142,6 +142,12 @@ void Testing::LoadModeConfig(void)
                 
                 break;
                 
+            case TREE_SHORT: 
+            case TREE_LONG:
+                cout << "\n\r" << "TREE" << "\n\n\r";
+                
+                break;    
+                
             case SEQ_SHORT: 
             case SEQ_LONG:
                 cout << "\n\r" << "SEQ" << "\n\n\r";
@@ -160,16 +166,20 @@ void Testing::LoadModeConfig(void)
             case BIN_SHORT:
             case BIN_LONG:
                 cout << "\n\r" << "BINARY" << "\n\n\r";
-                
+                TriParFusion(DataTable, 0, N-1);
+                for(int i =0; i<K; i++)
+                {
+                    ResultTable[i] = RechercheBinaire(DataTable,SearchTable[i],N);
+                    if(ResultTable[i]!=-1)
+                    {
+                        count++;
+                        //printf("%i %i %i %i \n\n\r",count,i,SearchTable[i], ResultTable[i]);
+                    }
+                }
                 break;
         }
-
-        for(int i =0;i<N;i++)
-        {
-            printf("%i ", DataTable[i]);
-        }
-        printf("\n\n\r");
-;
+        printf("K = %i, Count = %i\n\n\r",K,count);
+        SaveT3(listArg[5]);
     }
     else if(nbArg<6)
     {
@@ -294,4 +304,20 @@ void Testing::LoadT2(const char* address)
         while (c != EOF);
     fclose (textfile);
     }
+}
+
+void Testing::SaveT3(const char* address)
+{
+    FILE * textfile;
+      
+    textfile = fopen (address,"w");
+    if(textfile)
+    {
+        fprintf(textfile,"%i\t%i\n",K,count);
+        for(int i =0; i<(K-1);i++)
+            fprintf(textfile,"%i\t",ResultTable[i]);
+        fprintf(textfile,"%i",ResultTable[K-1]);
+        
+    }
+    fclose(textfile);
 }

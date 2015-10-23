@@ -1,4 +1,4 @@
-#include "CommonFunc.h"
+#include "../Header/CommonFunc.hpp"
 
 void swap(int *a, int *b)
 {
