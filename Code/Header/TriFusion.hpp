@@ -3,6 +3,6 @@
 
 #include "../Header/CommonFunc.hpp"
 
-Barometre TriParFusion(int *Donnees, int indexPremier, int indexDernier);
+Barometre TriParFusion(int Donnees[][2], int indexPremier, int indexDernier);
 
 #endif //TRI_FUSION_H

@@ -203,11 +203,20 @@ void Testing::LoadModeConfig(void)
             case BIN_SHORT:
             case BIN_LONG:
             {    
+                int BigDataTable[N][2];
+                int i;
+                for (i = 0; i < N; i++)
+                {
+                    BigDataTable[i][0] = DataTable[i]; // Premiere rangée = clé
+                    BigDataTable[i][1] = i; // Deuxième rangée = position dans la liste non triée
+                }
+                
                 cout << "\n\r" << "BINARY" << "\n\n\r";
-                TriParFusion(DataTable, 0, N-1);
+                TriParFusion(BigDataTable, 0, N-1);
+                
                 for(int i =0; i<K; i++)
                 {
-                    ResultTable[i] = RechercheBinaire(DataTable,SearchTable[i],N);
+                    ResultTable[i] = RechercheBinaire(BigDataTable,SearchTable[i],N);
                     if(ResultTable[i]!=-1)
                     {
                         count++;

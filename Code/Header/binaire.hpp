@@ -14,7 +14,7 @@ using namespace std;
 #ifndef BINAIRE_HPP
 #define	BINAIRE_HPP
 
-int RechercheBinaire(int *Tableau, int cle, int N);
+int RechercheBinaire(int Tableau[][2], int cle, int N);
 
 #endif	/* BINAIRE_HPP */
 
