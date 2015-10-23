@@ -14,7 +14,28 @@ using namespace std;
 #ifndef ARBRE_HPP
 #define	ARBRE_HPP
 
-void addnode(int key);
+class Node
+{
+public :
+    
+    int key;
+    int number;
+    Node *  leftChild;
+    Node * rightChild;
+    
+    Node(int key, int number);
+    ~Node(void);
+};
+
+class BinaryTree
+{
+private :
+    Node * root;
+public :
+    void addnode(int key, int number);
+    int findNode(int key);
+};
+
 
 
 #endif	/* ARBRE_HPP */

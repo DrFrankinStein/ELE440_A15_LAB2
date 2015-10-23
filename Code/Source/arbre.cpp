@@ -6,36 +6,19 @@
 
 using namespace std;
 
-class Node
-{
-public :
-    
-    int key;
-    int number;
-    Node *  leftChild;
-    Node * rightChild;
-    
-    Node(int key, int number)
+    Node::Node(int key, int number)
     {
         this->key = key;
         
         this->number = number;
     }
-    ~Node(void)
+    Node::~Node(void)
     {
         delete leftChild;
         delete rightChild;
     }
-};
 
-
-
-class BinaryTree
-{
-private :
-    Node * root;
-public :
-    void addnode(int key, int number)
+    void BinaryTree::addnode(int key, int number)
     {
         Node * newNode = new Node(key, number);
         
@@ -55,9 +38,10 @@ public :
                 
                 if(key < focusNode->key)
                 {
-                    focusNode = focusNode->leftChild;
+                    if(focusNode->leftChild!=NULL)
+                        focusNode = focusNode->leftChild;
                     
-                    if(focusNode == NULL)
+                    else if(focusNode->leftChild == NULL)
                     {
                         parent->leftChild = newNode;
                         return;
@@ -65,9 +49,10 @@ public :
                 }
                 else
                 {
-                    focusNode = focusNode->rightChild;
+                    if(focusNode->rightChild!=NULL)
+                        focusNode = focusNode->rightChild;
                     
-                    if (focusNode == NULL)
+                    else if (focusNode->rightChild == NULL)
                     {
                         parent->rightChild = newNode;
                         return;
@@ -78,7 +63,7 @@ public :
         }
     }
     
-    int findNode(int key)
+    int BinaryTree::findNode(int key)
     {
         Node * focusNode = root;
         
@@ -95,12 +80,10 @@ public :
             
             if(focusNode == NULL)
             {
-                return NULL;
+                return -1;
             }
         }
         return focusNode->number;
     }
-    
-};
     
     
