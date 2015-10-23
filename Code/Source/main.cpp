@@ -7,8 +7,13 @@
 
 #include <cstdlib>
 #include <iostream>
-#include <string.h>
+#include <string>
+
 #include "../Header/Test.hpp"
+#include "../Header/hash.hpp"
+#include "../Header/binaire.hpp"
+#include "../Header/arbre.hpp"
+#include "../Header/sequentielle.hpp"
 
 // -a/--auto [-N {X}] [-R {X}] [-D {X}] -algo [OUTPUTFILENAME]
 // -l/--load {INPUT FILE} -algo [OUTPUTFILENAME]
@@ -24,41 +29,17 @@ using namespace std;
 int main(int argc, char** argv) 
 {
     Testing T(argc,argv);
-    /*int cmd = -1;
-    if(argc>1)
-    {
-        for(int i = 0;i<END_COMMAND_T;i++)
-        {
-            if(!strcmp(argv[1],command_list_t[i]))
-            {
-                cmd = i;
-            }
-        }
-    }
+    int tableau[20] = {30,24,3,5,66,7,9,11,15,28,29,40,42,54,67,68,69,400,2043,5000};
+    BinaryTree tree;
+    int i;
     
-    switch (cmd) {
-        case AUTO_SHORT:
-        case AUTO_LONG:
-            cout << "\n\r" << "Use automatic generated values" << "\n\n\r";
-            break;
-
-        case LOAD_SHORT:
-        case LOAD_LONG:
-            cout << "\n\r" << "Use values loaded from a file" << "\n\n\r";
-            break;
-
-        default:
-            cout << "\n\r" << "HelloWorld" << "\n\n\r";
-            break;
+    for (i = 0; i < 20; i++)
+    {
+        tree.addnode(tableau[i],i);
     }
-    int * p;
-    for(int i=0; i<1000000; i++)
-    {    
-        delete p;
-        p = new int(i);
-        cout << p << " " <<*p << "\n\r";
-    }*/
-    //test();
+    int cle = tree.findNode(40);
+    
+    cout << "tableau = [" << cle << "] => " << tableau[cle] << endl;
     return 0;
 }
 
