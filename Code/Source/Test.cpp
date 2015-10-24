@@ -1,15 +1,5 @@
 #include "../Header/Test.hpp"
 
-/*void test(void)
-{
-    std::cout <<"\n\r" << "HelloWorld" << "\n\n\r";
-}*/
-
-/*Testing::Testing(void)
-{
-    
-}*/
-
 /**
  * Constructeur de la classe Testing
  * @param argc Nombre d'arguments lors de l'appel du programme
@@ -24,7 +14,7 @@ Testing::Testing(int argc, char** argv)
     if(nbArg>1)
         for(int i = 0;(i<END_COMMAND_T)&&(cmd==END_COMMAND_T);i++)
         {    
-            cout << listArg[1] << " vs " << command_list_t[i] << "\n\r";
+            //cout << listArg[1] << " vs " << command_list_t[i] << "\n\r";
             if(!strcmp(listArg[1],command_list_t[i]))
                 cmd = (command_t)i;
         }
@@ -102,7 +92,7 @@ void Testing::AutoModeOptionConfig(int iDArg)
     option = END_OPTION_T;
         for(int i = 0;(i<END_OPTION_T)&&(option==END_OPTION_T);i++)
         {    
-            cout << listArg[iDArg] << " vs " << option_list_t[i] << "\n\r";
+            //cout << listArg[iDArg] << " vs " << option_list_t[i] << "\n\r";
             if(!strcmp(listArg[iDArg],option_list_t[i]))
             {    
                 option = (option_t)i;
@@ -140,7 +130,7 @@ void Testing::LoadModeConfig(void)
         
         for(int i = 0;(i<END_ALGO_T)&&(algo==END_ALGO_T);i++)
         {    
-            cout << listArg[4] << " vs " << algo_list_t[i] << "\n\r";
+            //cout << listArg[4] << " vs " << algo_list_t[i] << "\n\r";
             if(!strcmp(listArg[4],algo_list_t[i]))
                 algo = (algo_t)i;
         }
@@ -256,7 +246,7 @@ void Testing::ManualLoadConfig(void)
         
         for(int i = 0;(i<END_ALGO_T)&&(algo==END_ALGO_T);i++)
         {    
-            cout << listArg[3] << " vs " << algo_list_t[i] << "\n\r";
+            //cout << listArg[3] << " vs " << algo_list_t[i] << "\n\r";
             if(!strcmp(listArg[3],algo_list_t[i]))
                 algo = (algo_t)i;
         }
