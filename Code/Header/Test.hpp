@@ -29,6 +29,8 @@ using namespace std;
 
 // -a/--auto -N {X} -R {X} -D {X} {SearchFile} -algo [OutputFile] //11
 // -l/--load {InputFile} {SearchFile} -algo [OutputFile] //6
+// -ml/--manload {InputFile} -algo //4
+// -ma/--manauto -N {X} -R {X} -D {X} -algo //9
 // -?/--help  //2
 
 class Testing
@@ -51,9 +53,11 @@ private:
     
     //all (static here???)
     enum command_t {AUTO_SHORT=0, AUTO_LONG, LOAD_SHORT, LOAD_LONG, 
-                    HELP_SHORT, HELP_LONG, END_COMMAND_T};
-    const char* command_list_t[END_COMMAND_T] = {   "-a","--auto","-l","--load",
-                                                    "-?", "--help"};
+                    HELP_SHORT, HELP_LONG, MANUAL_AUTO_SHORT, MANUAL_AUTO_LONG, 
+                    MANUAL_LOAD_SHORT, MANUAL_LOAD_LONG, END_COMMAND_T};
+    const char* command_list_t[END_COMMAND_T] = {   "-a", "--auto","-l","--load",
+                                                    "-?", "--help","-ma","--manauto",
+                                                    "-ml","--manload"};
     command_t cmd = END_COMMAND_T;
     
     enum algo_t {SEQ_SHORT=0, SEQ_LONG, HASH_SHORT, HASH_LONG, BIN_SHORT, 
@@ -75,6 +79,7 @@ private:
     void LoadModeConfig(void);
     void AutoModeConfig(void);
     void AutoModeOptionConfig(int iDArg);
+    void ManualLoadConfig(void);
     
     void LoadT1(const char* address);
     void LoadT2(const char* address);

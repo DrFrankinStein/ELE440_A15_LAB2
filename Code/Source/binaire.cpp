@@ -26,7 +26,7 @@ int RechercheBinaire(int tableau[][2], int cle, int N)
     }
     
     if(tableau[milieu][0] == cle)
-        return milieu;
+        return tableau[milieu][1];
     else
         return -1; // retourne -1 si la clé n'a pas été trouvée
 }
