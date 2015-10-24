@@ -26,7 +26,7 @@ Testing::Testing(int argc, char** argv)
         case AUTO_SHORT:
         case AUTO_LONG:
             cout << "\n\r" << "Use automatic generated values" << "\n\n\r";
-            AutoModeConfig();
+            //AutoModeConfig();
             break;
         
         //Mode lecture de donnees
@@ -503,13 +503,44 @@ void Testing::LoadT2(const char* address)
 void Testing::SaveT3(const char* address)
 {
     FILE * textfile;
-      
+    string alg;  
     textfile = fopen (address,"w");
     
     if(textfile)
     {
+        
+        switch(algo)
+        {
+            case HASH_SHORT: 
+            case HASH_LONG:
+            {    
+                alg = "Table de hachage";
+            }    
+            break;
+                
+            case TREE_SHORT: 
+            case TREE_LONG:
+            {
+                alg = "Arbre Binaire";
+            }
+            break;    
+                
+            case SEQ_SHORT: 
+            case SEQ_LONG:
+            {
+                alg = "Recherche séquencielle";
+            }
+            break;
+                
+            case BIN_SHORT:
+            case BIN_LONG:
+            {    
+                alg = "Recherche binaire";
+            }
+            break;
+        }
         //Stats
-        fprintf(textfile,"N=%i\tR=%i\tD=%i\tK=%i\tNBRE DE DONNÉES TROUVÉES = %i\n\n",N,R,D,K,count);
+        fprintf(textfile,"Algorithme de recherche = %s\n\nN=%i\nR=%i\nD=%i\n\nK=%i\nNBRE DE DONNÉES TROUVÉES = %i\n\n",alg.c_str(),N,R,D,K,count);
         //T1
         for(int i =0; i<(N-1);i++)
             fprintf(textfile,"%i\t",DataTable[i]);
