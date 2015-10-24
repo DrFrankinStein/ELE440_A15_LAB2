@@ -8,13 +8,19 @@ using namespace std;
 
 Node::Node(int key, int number)
 {
-	this->key = key;
-	this->number = number;
+    this->key = key;
+    this->number = number;
+    hasLeftChild = false; hasRightChild = false;
 }
 Node::~Node(void)
 {
-	delete leftChild;
-	delete rightChild;
+    delete leftChild;
+    delete rightChild;
+}
+
+BinaryTree::BinaryTree(void)
+{
+    hasRoot=false;
 }
 
 void BinaryTree::addnode(int key, int number)

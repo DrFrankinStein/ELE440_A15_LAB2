@@ -49,7 +49,7 @@ private:
     int *SearchTable;//T2
     int *ResultTable;//T3
     int K, N, R, D;
-    int count=0;
+    int count;
     
     //all (static here???)
     enum command_t {AUTO_SHORT=0, AUTO_LONG, LOAD_SHORT, LOAD_LONG, 

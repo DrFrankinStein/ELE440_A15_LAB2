@@ -502,7 +502,7 @@ void Testing::LoadT2(const char* address)
                 if(buffer!="")
                 {
                     sscanf(buffer.c_str(),"%i",&tmp);
-                    DataTable[index-3] = tmp;
+                    SearchTable[index-1] = tmp;
                 }
         } 
         while (c != EOF);
