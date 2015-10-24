@@ -21,6 +21,7 @@ typedef struct Barometres
 void swap(int *a, int *b);
 int randInt(int min, int max);
 void printIntArray(int* T, int n);
+void GenererDonnees (int *tableau, int N, int R, int D);
 
 #endif	/* COMMONFUNC_H */
 
