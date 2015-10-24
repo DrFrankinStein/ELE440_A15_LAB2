@@ -22,6 +22,7 @@ public :
     int number;
     Node *  leftChild;
     Node * rightChild;
+    bool hasLeftChild = false, hasRightChild = false;
     
     Node(int key, int number);
     ~Node(void);
@@ -31,6 +32,7 @@ class BinaryTree
 {
 private :
     Node * root;
+    bool hasRoot=false;
 public :
     void addnode(int key, int number);
     int findNode(int key);

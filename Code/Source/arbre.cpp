@@ -22,11 +22,11 @@ void BinaryTree::addnode(int key, int number)
     //Node * newNode = new Node(key, number);
     bool exit=false;
     
-    if(root==NULL)
+    if(hasRoot==false)
     {
         root = new Node(key, number);
+        hasRoot=true;
     }
-    
     else
     {
     	Node * focusNode = root;	
@@ -38,23 +38,25 @@ void BinaryTree::addnode(int key, int number)
 			
             if(key < focusNode->key)
             {
-                if(focusNode->leftChild!=NULL)
-                focusNode = focusNode->leftChild;
+                if(focusNode->hasLeftChild)
+                    focusNode = focusNode->leftChild;
 				
-                else if(focusNode->leftChild == NULL)
+                else
                 {
                     parent->leftChild = new Node(key, number);
+                    parent->hasLeftChild = true;
                     exit=true;
 		}
             }
             else
             {
-                if(focusNode->rightChild!=NULL)
+                if(focusNode->hasRightChild)
                     focusNode = focusNode->rightChild;
 				
-		else if (focusNode->rightChild == NULL)
+		else
 		{
                     parent->rightChild = new Node(key, number);
+                    parent->hasRightChild = true;
                     exit = true;
 		}
             }
@@ -70,16 +72,17 @@ int BinaryTree::findNode(int key)
     {
     	if(key < focusNode->key)
     	{
-            focusNode = focusNode->leftChild;
+            if(focusNode->hasLeftChild)
+                focusNode = focusNode->leftChild;
+            else
+                return -1;
 	}
 	else
 	{
-            focusNode = focusNode->rightChild;
-	}
-		
-        if(focusNode == NULL)
-	{
-            return -1;
+            if(focusNode->hasRightChild)
+                focusNode = focusNode->rightChild;
+            else
+                return -1;
 	}
     }
     return focusNode->number;
