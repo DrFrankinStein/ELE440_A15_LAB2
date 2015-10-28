@@ -1,11 +1,20 @@
+#include <vector>
+
 #include "../Header/Test.hpp"
+
+
+
+Testing::Testing(void)
+{
+    
+}
 
 /**
  * Constructeur de la classe Testing
  * @param argc Nombre d'arguments lors de l'appel du programme
  * @param argv Liste des arguments lors de l'appel du programme
  */
-Testing::Testing(int argc, char** argv) 
+/*Testing::Testing(int argc, char** argv) 
 {
     nbArg = argc;
     listArg = argv;
@@ -58,7 +67,7 @@ Testing::Testing(int argc, char** argv)
             cout << "\n\r" << "I AM ERROR" << "\n\n\r";
             break;
     }    
-}
+}*/
 
 /**
  * Destructeur de Testing
@@ -71,7 +80,7 @@ Testing::~Testing(void)
 /**
  * Fonction de configuration si le mode est automatique
  */
-void Testing::AutoModeConfig(void)
+/*void Testing::AutoModeConfig(void)
 {
     /*for(int j = 2; j < nbArg; j++)
     {    
@@ -79,7 +88,7 @@ void Testing::AutoModeConfig(void)
     }
     cout << "\n\rN = " << N << " R = " << R << " D = " << D << "\n\r";
     cout << "OutputFile= " << outputFile << "\n\r";*/
-    
+/*    
     count=0;
     if(nbArg==11)
     {
@@ -170,8 +179,8 @@ void Testing::AutoModeConfig(void)
                 int i;
                 for (i = 0; i < N; i++)
                 {
-                    BigDataTable[i][0] = DataTable[i]; // Premiere rangée = clé
-                    BigDataTable[i][1] = i; // Deuxième rangée = position dans la liste non triée
+                    BigDataTable[i][0] = DataTable[i]; // Premiere rangÃ©e = clÃ©
+                    BigDataTable[i][1] = i; // DeuxiÃ¨me rangÃ©e = position dans la liste non triÃ©e
                 }
                 
                 cout << "\n\r" << "BINARY" << "\n\n\r";
@@ -216,15 +225,15 @@ void Testing::AutoModeConfig(void)
         cout << "\n\r" << "Too much argument" << "\n\n\r";
     }
 
-}
+}*/
 
 /**
- * Fonction qui lit les differents paramètres necessaires 
+ * Fonction qui lit les differents paramÃ¨tres necessaires 
  * pour generer les donnees automatiquement si ils sont
  * presents dans la liste d'argument
  * @param iDArg Numero du dernier argument lu 
  */
-void Testing::AutoModeOptionConfig(int iDArg)
+/*void Testing::AutoModeOptionConfig(int iDArg)
 {
     option = END_OPTION_T;
         for(int i = 0;(i<END_OPTION_T)&&(option==END_OPTION_T);i++)
@@ -341,8 +350,8 @@ void Testing::LoadModeConfig(void)
                 int i;
                 for (i = 0; i < N; i++)
                 {
-                    BigDataTable[i][0] = DataTable[i]; // Premiere rangée = clé
-                    BigDataTable[i][1] = i; // Deuxième rangée = position dans la liste non triée
+                    BigDataTable[i][0] = DataTable[i]; // Premiere rangÃ©e = clÃ©
+                    BigDataTable[i][1] = i; // DeuxiÃ¨me rangÃ©e = position dans la liste non triÃ©e
                 }
                 
                 cout << "\n\r" << "BINARY" << "\n\n\r";
@@ -510,8 +519,8 @@ void Testing::ManualLoadConfig(void)
                 int i;
                 for (i = 0; i < N; i++)
                 {
-                    BigDataTable[i][0] = DataTable[i]; // Premiere rangée = clé
-                    BigDataTable[i][1] = i; // Deuxième rangée = position dans la liste non triée
+                    BigDataTable[i][0] = DataTable[i]; // Premiere rangee = cle
+                    BigDataTable[i][1] = i; // Deuxieme rangee = position dans la liste non triee
                 }
                 
                 cout << "\n\r" << "BINARY" << "\n\n\r";
@@ -575,8 +584,8 @@ void Testing::ManualLoadConfig(void)
         cout << "\n\r" << "Too much argument" << "\n\n\r";
     }
 }
-
-void Testing::LoadT1(const char* address)
+*/
+bool Testing::LoadT1(const char* address)
 {
     FILE * textfile;
     char c;
@@ -586,7 +595,10 @@ void Testing::LoadT1(const char* address)
     
     textfile = fopen (address,"r");
     if (textfile == NULL) 
+    {
         perror ("Error opening file");
+        return false;
+    }
     else 
     {
         do 
@@ -634,9 +646,10 @@ void Testing::LoadT1(const char* address)
         while (c != EOF);
     fclose (textfile);
     }
+    return true;
 }
 
-void Testing::LoadT2(const char* address)
+bool Testing::LoadT2(const char* address)
 {
     FILE * textfile;
     char c;
@@ -645,8 +658,11 @@ void Testing::LoadT2(const char* address)
     string buffer="";
     
     textfile = fopen (address,"r");
-    if (textfile == NULL) 
+    if (textfile == NULL)
+    {
         perror ("Error opening file");
+        return false;
+    }
     else 
     {
         do 
@@ -689,6 +705,7 @@ void Testing::LoadT2(const char* address)
         while (c != EOF);
     fclose (textfile);
     }
+    return true;
 }
 
 void Testing::SaveT3(const char* address)
@@ -719,7 +736,7 @@ void Testing::SaveT3(const char* address)
             case SEQ_SHORT: 
             case SEQ_LONG:
             {
-                alg = "Recherche séquencielle";
+                alg = "Recherche sequencielle";
             }
             break;
                 
@@ -733,12 +750,12 @@ void Testing::SaveT3(const char* address)
             case OPTIMIZE_SHORT:
             case OPTIMIZE_LONG:
             {
-                alg = "Recherche optimisée";
+                alg = "Recherche optimisee";
             }    
             break;
         }
         //Stats
-        fprintf(textfile,"Algorithme de recherche = %s\n\nN=%i\nR=%i\nD=%i\n\nK=%i\nNBRE DE DONNÉES TROUVÉES = %i\n\n",alg.c_str(),N,R,D,K,count);
+        fprintf(textfile,"Algorithme de recherche = %s\n\nN=%i\nR=%i\nD=%i\n\nK=%i\nNBRE DE DONNEES TROUVEES = %i\n\n",alg.c_str(),N,R,D,K,count);
         //T1
         for(int i =0; i<(N-1);i++)
             fprintf(textfile,"%i\t",DataTable[i]);
@@ -754,4 +771,613 @@ void Testing::SaveT3(const char* address)
     }
     
     fclose(textfile);
+}
+
+void Testing::EnterConfig(void)
+{
+    //Enter data type : auto or load
+        //if auto
+            //N
+            //R
+            //D
+        //if load
+            //FileName
+    //Enter search type : manual or file
+        //if load
+            //FileName
+            //output filename
+    //Enter algo type
+    SetData();
+    SetSearch();
+    SetOutputFileAddress();
+    SetAlgo();  
+}
+
+void Testing::SetData(void)
+{
+    char c;
+    bool exit =false;
+    while(!exit)
+    {
+        cout << "Enter the type of data to test(0=auto; 1=load): ";
+        cin >> c;
+        if(cin.good())
+        {
+            switch(c)
+            {
+                case '0':
+                    cmd = AUTO_SHORT;
+                    SetNRD();
+                    exit = true;
+                    break;
+                case '1':
+                    cmd = LOAD_SHORT;
+                    SetDataFileAddress();
+                    exit = true;
+                    break;
+                default :
+                    cout << "Wrong input\n\r";
+                    break;
+            }
+        }
+        else
+        {
+            cout << "Wrong input\n\r";
+        }
+        cin.ignore();
+        cin.clear();
+    }    
+}
+
+void Testing::SetNRD(void)
+{
+    int value;
+    bool exit;
+    
+    cout << "Enter auto config variable\n\r";
+    for(int i=0; i<3;i++)
+    {    
+        switch(i)
+        {
+            case 0 :
+                cout << "N = ";
+                break;
+            case 1 :
+                cout << "R = ";
+                break;
+            case 2 :
+                cout << "D = ";
+                break;
+                
+        }
+        exit = false;
+        while(!exit)
+        {
+            cin >> value;
+            if(cin.good())
+            {
+                if(value>=0)
+                {
+                    switch(i)
+                    {
+                        case 0 :
+                        {
+                            if(value>=1)
+                            {
+                                N = value;
+                                exit = true;
+                            }
+                            else
+                                cout << "Wrong value (N must be greater than 0)\n\rN= ";
+                                
+                        }
+                            break;
+                        case 1 :
+                        {
+                            if(value>=N)
+                            {
+                                R = value;
+                                exit = true;
+                            }
+                            else    
+                                cout << "Wrong value (R must be equal or greater than N)\n\rR= ";
+                        }
+                            break;
+                        case 2 :
+                        {
+                            if(value<=100)
+                            {
+                                D = value;
+                                exit = true;
+                            }   
+                            else
+                                cout << "Wrong value (D must be between 0 and 100)\n\rD= ";
+                        }
+                            break;
+                    }  
+                }
+                else
+                {
+                    cout << "Wrong value (must be greater or equal to 0)\n\r";
+                }
+            }
+            else
+            {
+                cout << "Wrong value (must be a valid integer)\n\r";
+                cin.clear();
+                cin.ignore();
+            }
+                   
+        }
+    }
+    cout << "N = " << N << " R = " << R << " D = " << D << endl;
+    //Generate Values
+    DataTable = new int[N];
+    GenererDonnees(DataTable, N , R, D);
+    //printIntArray(DataTable,N);
+}
+
+void Testing::SetDataFileAddress(void)
+{
+    string str;
+    bool exit =false;
+    while(!exit)
+    {
+        cout << "Enter the address of the data file: ";
+        cin >> str;
+        if(cin.good())
+        {
+            if(LoadT1(str.c_str()))
+            {
+                cout << "N = " << N << " R = " << R << " D = " << D << endl;
+                exit = true;
+            }
+        }
+        else
+        {
+            cout << "Wrong input\n\r";
+            cin.clear();
+            cin.ignore();
+        }
+    }
+}
+
+void Testing::SetSearch(void)
+{
+    char c;
+    bool exit =false;
+    while(!exit)
+    {
+        cout << "Enter the type of search to use (0=manual; 1=load): ";
+        cin >> c;
+        if(cin.good())
+        {
+            switch(c)
+            {
+                case '0':
+                    if(cmd==AUTO_SHORT)
+                        cmd = MANUAL_AUTO_SHORT;
+                    else
+                        cmd = MANUAL_LOAD_SHORT;
+                    exit = true;
+                    break;
+                case '1':
+                    SetSearchFileAddress();
+                    exit = true;
+                    break;
+                default :
+                    cout << "Wrong input\n\r";
+                    break;
+            }
+        }
+        else
+        {
+            cout << "Wrong input\n\r";
+        }
+        cin.clear();
+        cin.ignore();
+    }
+}
+
+void Testing::SetSearchFileAddress(void)
+{
+    string str;
+    bool exit =false;
+    while(!exit)
+    {
+        cout << "Enter the adress of the search file: ";
+        cin >> str;
+        if(cin.good())
+        {
+            if(LoadT2(str.c_str()))
+            {
+                cout << "K = " << K << endl;
+                ResultTable = new int[K];
+                exit = true;
+            }
+        }
+        else
+        {
+            cout << "Wrong input\n\r";
+        }
+        //cin.clear();
+        //cin.ignore();
+        
+    }
+}
+
+void Testing::SetOutputFileAddress(void)
+{
+    string str;
+    bool exit =false;
+    while(!exit)
+    {
+        cout << "Enter the adress of the stats file: ";
+        cin >> str;
+        if(cin.good())
+        {
+            outputFile=str;
+            exit = true;
+        }
+        else
+        {
+            cout << "Wrong input\n\r";
+        }
+    }
+}
+
+void Testing::SetAlgo(void)
+{
+    char c;
+    bool exit =false;
+    while(!exit)
+    {
+        cout << "Enter the type of algorithm to use :\n\r";
+        cout << "0=sequencial" << endl;
+        cout << "1=hash table" << endl;
+        cout << "2=binary" << endl;
+        cout << "3=tree" << endl;
+        cout << "4=optimized" << endl;
+        cin >> c;
+        if(cin.good())
+        {
+            switch(c)
+            {
+                case '0':
+                    algo =SEQ_SHORT;
+                    exit = true;
+                    break;
+                case '1':
+                    algo = HASH_SHORT;
+                    exit = true;
+                    break;
+                case '2':
+                    algo = BIN_SHORT;
+                    exit = true;
+                    break;
+                case '3':
+                    algo = TREE_SHORT;
+                    exit = true;
+                    break;
+                case '4':
+                    algo = OPTIMIZE_SHORT;
+                    exit = true;
+                    break;
+                default :
+                    cout << "Wrong input\n\r";
+                    break;
+            }
+        }
+        else
+        {
+            cout << "Wrong input\n\r";
+        }
+        cin.clear();
+        cin.ignore();
+    }
+}
+
+void Testing::StartTest(void)
+{
+    switch(cmd)
+    {
+        case AUTO_SHORT:
+        //case AUTO_LONG:
+        case LOAD_SHORT:
+        //case LOAD_LONG:
+            AutoRequest();
+            break;
+            
+        case MANUAL_AUTO_SHORT:
+        //case MANUAL_AUTO_LONG:
+        case MANUAL_LOAD_SHORT:
+        //case MANUAL_LOAD_LONG:
+            ManualRequest();
+            break;
+    }
+}
+
+void Testing::AutoRequest(void)
+{
+    count=0;
+    switch(algo)
+    {
+        case HASH_SHORT: 
+        case HASH_LONG:
+        {    
+            cout << "\n\r" << "HASH TABLE" << "\n\n\r";
+
+            hashH hashy;
+            for(int i = 0; i < N; i++)
+            {
+                hashy.AddItem(DataTable[i],i);
+            }
+            for(int i =0; i<K; i++)
+            {
+                ResultTable[i] = hashy.RechercheHash(SearchTable[i],N);
+                if(ResultTable[i]!=-1)
+                    count++;
+            }
+        }    
+        break;
+
+        case TREE_SHORT: 
+        case TREE_LONG:
+        {
+            cout << "\n\r" << "TREE" << "\n\n\r";
+            BinaryTree bin;
+            for(int i =0; i<N; i++)
+            {
+                bin.addnode(DataTable[i],i);
+            }
+            for(int i =0; i<K; i++)
+            {
+                ResultTable[i] = bin.findNode(SearchTable[i]);
+                if(ResultTable[i]!=-1)
+                    count++;
+            }
+        }
+
+        break;    
+
+        case SEQ_SHORT: 
+        case SEQ_LONG:
+        {
+            cout << "\n\r" << "SEQUENTIAL" << "\n\n\r";
+            for(int i =0; i<K; i++)
+            {
+                ResultTable[i] = RechercheSequentielle(DataTable,SearchTable[i],N);
+                if(ResultTable[i]!=-1)
+                    count++;
+            }
+        }
+        break;
+
+        case BIN_SHORT:
+        case BIN_LONG:
+        {    
+            int BigDataTable[N][2];
+            int i;
+            for (i = 0; i < N; i++)
+            {
+                BigDataTable[i][0] = DataTable[i]; // Premiere rangee = cle
+                BigDataTable[i][1] = i; // Deuxieme rangee = position dans la liste non triee
+            }
+
+            cout << "\n\r" << "BINARY" << "\n\n\r";
+            TriParFusion(BigDataTable, 0, N-1);
+
+            for(int i =0; i<K; i++)
+            {
+                ResultTable[i] = RechercheBinaire(BigDataTable,SearchTable[i],N);
+                if(ResultTable[i]!=-1)
+                    count++;
+            }
+        }
+        break;
+        case OPTIMIZE_SHORT:
+        case OPTIMIZE_LONG:
+        {
+            cout << "\n\r" << "OPTIMIZE" << "\n\n\r";
+            for(int i =0; i<K; i++)
+            {
+                ResultTable[i] = RechercheOptimisee(DataTable,SearchTable[i],N, R, D);
+                if(ResultTable[i]!=-1)
+                    count++;
+            }
+        }  
+    }
+    printf("K = %i, Count = %i\n\n\r",K,count);
+    SaveT3(outputFile.c_str());
+}
+
+void Testing::ManualRequest(void)
+{
+    int value = 0;
+    K=0;
+    count=0;
+    vector<int> search;
+    vector<int> result;
+    
+    switch(algo)
+    {
+        case HASH_SHORT: 
+        case HASH_LONG:
+        {    
+            cout << "\n\r" << "HASH TABLE" << "\n\n\r";
+
+            hashH hashy;
+            for(int i = 0; i < N; i++)
+            {
+                hashy.AddItem(DataTable[i],i);
+            }
+
+            while(value>=0)
+            {
+                cout << "Enter a value to search (or negative value to quit): ";
+                cin >> value;
+                if(cin.good())
+                {
+                    if(value>=0)
+                    {
+                        K++;
+                        search.push_back(value);
+                        result.push_back(hashy.RechercheHash(value,N));
+                        if(result.back()!=-1)
+                            count++;
+                        cout << "Value :" << value << " is found in index : "<< result.back() << endl;
+                    }
+                }
+                else
+                {
+                    cout << "Wrong input\n\r";
+                }
+                cin.clear();
+                cin.ignore();
+
+            }
+        }    
+        break;
+
+        case TREE_SHORT: 
+        case TREE_LONG:
+        {
+            cout << "\n\r" << "TREE" << "\n\n\r";
+            BinaryTree bin;
+            for(int i =0; i<N; i++)
+            {
+                bin.addnode(DataTable[i],i);
+            }
+
+            while(value>=0)
+            {
+                cout << "Enter a value to search (or negative value to quit): ";
+                cin >> value;
+                if(cin.good())
+                {
+                    if(value>=0)
+                    {
+                        K++;
+                        search.push_back(value);
+                        result.push_back(bin.findNode(value));
+                        if(result.back()!=-1)
+                            count++;
+                        cout << "Value :" << value << " is found in index : "<< result.back() << endl;
+                    }
+                }
+                else
+                {
+                    cout << "Wrong input\n\r";
+                }
+                cin.clear();
+                cin.ignore();
+            }
+        }
+        break;    
+
+        case SEQ_SHORT: 
+        case SEQ_LONG:
+        {
+            cout << "\n\r" << "SEQ" << "\n\n\r";
+
+            while(value>=0)
+            {
+                cout << "Enter a value to search (or negative value to quit): ";
+                cin >> value;
+                if(cin.good())
+                {
+                    if(value>=0)
+                    {
+                        K++;
+                        search.push_back(value);
+                        result.push_back(RechercheSequentielle(DataTable,value,N));
+                        if(result.back()!=-1)
+                            count++;
+                        cout << "Value :" << value << " is found in index : "<< result.back() << endl;
+                    }
+                }
+                else
+                {
+                    cout << "Wrong input\n\r";
+                }
+                cin.clear();
+                cin.ignore();
+            }
+        }
+        break;
+
+        case BIN_SHORT:
+        case BIN_LONG:
+        {    
+            int BigDataTable[N][2];
+            int i;
+            for (i = 0; i < N; i++)
+            {
+                BigDataTable[i][0] = DataTable[i]; // Premiere rangee = cle
+                BigDataTable[i][1] = i; // Deuxieme rangee = position dans la liste non triee
+            }
+
+            cout << "\n\r" << "BINARY" << "\n\n\r";
+            TriParFusion(BigDataTable, 0, N-1);
+
+            while(value>=0)
+            {
+                cout << "Enter a value to search (or negative value to quit): ";
+                cin >> value;
+                if(cin.good())
+                {
+                    if(value>=0)
+                    {
+                        K++;
+                        search.push_back(value);
+                        result.push_back(RechercheBinaire(BigDataTable,value,N));
+                        if(result.back()!=-1)
+                            count++;
+                        cout << "Value :" << value << " is found in index : "<< result.back() << endl;
+                    }
+                }
+                else
+                {
+                    cout << "Wrong input\n\r";
+                }
+                cin.clear();
+                cin.ignore();
+            }
+        }
+        break;
+        case OPTIMIZE_SHORT:
+        case OPTIMIZE_LONG:
+        {
+            cout << "\n\r" << "OPTIMIZE" << "\n\n\r";
+
+            while(value>=0)
+            {
+                cout << "Enter a value to search (or negative value to quit): ";
+                cin >> value;
+                if(cin.good())
+                {
+                    if(value>=0)
+                    {
+                        K++;
+                        search.push_back(value);
+                        result.push_back(RechercheOptimisee(DataTable,value,N, R, D));
+                        if(result.back()!=-1)
+                            count++;
+                        cout << "Value :" << value << " is found in index : "<< result.back() << endl;
+                    }
+                }
+                else
+                {
+                    cout << "Wrong input\n\r";
+                }
+                cin.clear();
+                cin.ignore();
+            }
+        }
+        break;  
+    }
+    SearchTable = &search[0];
+    ResultTable = &result[0];
+    printf("K = %i, Count = %i\n\n\r",K,count);
+    SaveT3(outputFile.c_str());
 }

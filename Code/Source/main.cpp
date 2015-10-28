@@ -138,7 +138,12 @@ int * LoadT2(const char* address, int* N)
  */
 int main(int argc, char** argv) 
 {
-    Testing T(argc,argv);
+    //Testing T(argc,argv);
+    Testing T;
+    
+    T.EnterConfig();
+    T.StartTest();
+    
     /*int tableau[20] = {30,24,3,5,66,7,9,11,15,28,29,40,42,54,67,68,69,400,2043,5000};
     BinaryTree tree;
     int i;

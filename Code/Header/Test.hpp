@@ -37,14 +37,18 @@ using namespace std;
 class Testing
 {
 public: 
-    //Testing(void);
-    Testing(int argc, char** argv);
+    Testing(void);
+    //Testing(int argc, char** argv);
+    
+    void EnterConfig(void);
+    void StartTest(void);
+    
     ~Testing(void);
         
 private:
     
-    int nbArg;
-    char** listArg;
+    //int nbArg;
+    //char** listArg;
     
     int *DataTable;//T1
     int *SearchTable;//T2
@@ -69,23 +73,38 @@ private:
                                             "-o","--op"};
     algo_t algo = END_ALGO_T;
     
-    char* outputFile = (char*)"INIT";
+    string outputFile = "INIT";
     
     //auto mode
-    enum option_t {NBR_DATA=0,RANK_DATA,DISPERTION_RATE,END_OPTION_T};
+    /*enum option_t {NBR_DATA=0,RANK_DATA,DISPERTION_RATE,END_OPTION_T};
     const char* option_list_t[END_OPTION_T] = {"-N","-R","-D"};
-    option_t option = END_OPTION_T;
+    option_t option = END_OPTION_T;*/
     
     //load mode
-    void LoadModeConfig(void);
+    /*void LoadModeConfig(void);
     void AutoModeConfig(void);
     void AutoModeOptionConfig(int iDArg);
     void ManualLoadConfig(void);
-    void ManualAutoConfig(void);
+    void ManualAutoConfig(void);*/
     
-    void LoadT1(const char* address);
-    void LoadT2(const char* address);
+    bool LoadT1(const char* address);
+    bool LoadT2(const char* address);
     void SaveT3(const char* address);
+    
+    
+    void SetData(void);
+    void SetNRD(void);
+    void SetDataFileAddress(void);
+    void SetSearch(void);
+    void SetSearchFileAddress(void);
+    void SetOutputFileAddress(void);
+    void SetAlgo(void);
+    
+    void AutoRequest(void);
+    void ManualRequest(void);
+    
+    
+    
 };
 
 #endif	/* TEST_HPP */
