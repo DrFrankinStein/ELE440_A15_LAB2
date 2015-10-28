@@ -16,7 +16,7 @@ void swap(int *a, int *b)
 
 int randInt(int min, int max)
 {
-    srand(time(NULL));
+    //srand(time(NULL));
     int range = max-min+1;
     return (rand()%range)+min; 
 }
@@ -32,6 +32,7 @@ void printIntArray(int* T, int n)
 
 void GenererDonnees (int *tableau, int N, int R, int D)
 {
+    srand(time(NULL));
     if (R >= N)
     {
         
@@ -39,13 +40,26 @@ void GenererDonnees (int *tableau, int N, int R, int D)
         
         int last = 0;
         
+        if(step==1)
+            last = R-N;
+        
         for (int i = 0; i < N; i++)
         {
             tableau[i] = last;
             last = last + step;
             
         }
-        
+        if(N>1)
+        {
+            tableau[0] = randInt(0,tableau[1]-1);
+            for (int i = 1; i < N-1; i++)
+            {
+                tableau[i] = randInt(tableau[i-1]+1,tableau[i+1]-1);
+            }
+            tableau[N-1] = randInt(tableau[N-2]+1,R);
+        }
+        else
+            tableau[0] = randInt(0,R);
         // Les données sont triées
         
         // mettre les données en désordre.
