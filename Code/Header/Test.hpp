@@ -18,6 +18,7 @@
 #include "../Header/binaire.hpp"
 #include "../Header/hash.hpp"
 #include "../Header/arbre.hpp"
+#include "../Header/optimisee.hpp"
 
 #include "../Header/CommonFunc.hpp"
 #include "../Header/TriFusion.hpp"
@@ -80,6 +81,7 @@ private:
     void AutoModeConfig(void);
     void AutoModeOptionConfig(int iDArg);
     void ManualLoadConfig(void);
+    void ManualAutoConfig(void);
     
     void LoadT1(const char* address);
     void LoadT2(const char* address);

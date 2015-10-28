@@ -14,8 +14,6 @@ hashH::hashH(void)
         HashTable[i]->cle = -1;
         HashTable[i]->i = -1;
         HashTable[i]->next = NULL;
-        
-        
     }
 }
 

@@ -73,12 +73,149 @@ Testing::~Testing(void)
  */
 void Testing::AutoModeConfig(void)
 {
-    for(int j = 2; j < nbArg; j++)
+    /*for(int j = 2; j < nbArg; j++)
     {    
         AutoModeOptionConfig(j);
     }
     cout << "\n\rN = " << N << " R = " << R << " D = " << D << "\n\r";
-    cout << "OutputFile= " << outputFile << "\n\r";
+    cout << "OutputFile= " << outputFile << "\n\r";*/
+    
+    count=0;
+    if(nbArg==11)
+    {
+        //cout << "\n\r" << "OK" << "\n\n\r";
+        //LoadT1(listArg[2]);
+        
+        for(int j = 2; j < nbArg; j++)
+        {    
+            AutoModeOptionConfig(j);
+        }
+        
+        LoadT2(listArg[8]);
+        ResultTable = new int[K];
+        
+        for(int i = 0;(i<END_ALGO_T)&&(algo==END_ALGO_T);i++)
+        {    
+            //cout << listArg[4] << " vs " << algo_list_t[i] << "\n\r";
+            if(!strcmp(listArg[9],algo_list_t[i]))
+                algo = (algo_t)i;
+        }
+        
+        switch(algo)
+        {
+            case HASH_SHORT: 
+            case HASH_LONG:
+            {    
+                cout << "\n\r" << "HASH TABLE" << "\n\n\r";
+                
+                hashH hashy;
+                for(int i = 0; i < N; i++)
+                {
+                    hashy.AddItem(DataTable[i],i);
+                }
+                for(int i =0; i<K; i++)
+                {
+                    ResultTable[i] = hashy.RechercheHash(SearchTable[i],N);
+                    if(ResultTable[i]!=-1)
+                    {
+                        count++;
+                        //printf("%i %i %i %i \n\n\r",count,i,SearchTable[i], ResultTable[i]);
+                    }
+                }
+            }    
+            break;
+                
+            case TREE_SHORT: 
+            case TREE_LONG:
+            {
+                cout << "\n\r" << "TREE" << "\n\n\r";
+                BinaryTree bin;
+                for(int i =0; i<N; i++)
+                {
+                    bin.addnode(DataTable[i],i);
+                }
+                for(int i =0; i<K; i++)
+                {
+                    ResultTable[i] = bin.findNode(SearchTable[i]);
+                    if(ResultTable[i]!=-1)
+                    {
+                        count++;
+                        //printf("%i %i %i %i \n\n\r",count,i,SearchTable[i], ResultTable[i]);
+                    }
+                }
+            }
+                
+            break;    
+                
+            case SEQ_SHORT: 
+            case SEQ_LONG:
+            {
+                cout << "\n\r" << "SEQUENTIAL" << "\n\n\r";
+                for(int i =0; i<K; i++)
+                {
+                    ResultTable[i] = RechercheSequentielle(DataTable,SearchTable[i],N);
+                    if(ResultTable[i]!=-1)
+                    {
+                        count++;
+                        //printf("%i %i %i %i \n\n\r",count,i,SearchTable[i], ResultTable[i]);
+                    }
+                }
+            }
+            break;
+                
+            case BIN_SHORT:
+            case BIN_LONG:
+            {    
+                int BigDataTable[N][2];
+                int i;
+                for (i = 0; i < N; i++)
+                {
+                    BigDataTable[i][0] = DataTable[i]; // Premiere rangée = clé
+                    BigDataTable[i][1] = i; // Deuxième rangée = position dans la liste non triée
+                }
+                
+                cout << "\n\r" << "BINARY" << "\n\n\r";
+                TriParFusion(BigDataTable, 0, N-1);
+                
+                for(int i =0; i<K; i++)
+                {
+                    ResultTable[i] = RechercheBinaire(BigDataTable,SearchTable[i],N);
+                    if(ResultTable[i]!=-1)
+                    {
+                        count++;
+                        //printf("%i %i %i %i \n\n\r",count,i,SearchTable[i], ResultTable[i]);
+                    }
+                }
+            }
+            break;
+            case OPTIMIZE_SHORT:
+            case OPTIMIZE_LONG:
+            {
+                cout << "\n\r" << "OPTIMIZE" << "\n\n\r";
+                for(int i =0; i<K; i++)
+                {
+                    //ResultTable[i] = RechercheSequentielle(DataTable,SearchTable[i],N);
+                    ResultTable[i] = RechercheOptimisee(DataTable,SearchTable[i],N, R, D);
+                    if(ResultTable[i]!=-1)
+                    {
+                        count++;
+                        //printf("%i %i %i %i \n\n\r",count,i,SearchTable[i], ResultTable[i]);
+                    }
+                }
+            }  
+        }
+        printf("K = %i, Count = %i\n\n\r",K,count);
+        SaveT3(listArg[10]);
+    }
+    else if(nbArg<11)
+    {
+        cout << "\n\r" << "Not enough argument" << "\n\n\r"; 
+    }
+    else
+    {
+        cout << "\n\r" << "Too much argument" << "\n\n\r";
+    }
+
 }
 
 /**
@@ -184,7 +321,7 @@ void Testing::LoadModeConfig(void)
             case SEQ_SHORT: 
             case SEQ_LONG:
             {
-                cout << "\n\r" << "SEQ" << "\n\n\r";
+                cout << "\n\r" << "SEQUENTIAL" << "\n\n\r";
                 for(int i =0; i<K; i++)
                 {
                     ResultTable[i] = RechercheSequentielle(DataTable,SearchTable[i],N);
@@ -222,6 +359,21 @@ void Testing::LoadModeConfig(void)
                 }
             }
             break;
+            case OPTIMIZE_SHORT:
+            case OPTIMIZE_LONG:
+            {
+                cout << "\n\r" << "OPTIMIZE" << "\n\n\r";
+                for(int i =0; i<K; i++)
+                {
+                    //ResultTable[i] = RechercheSequentielle(DataTable,SearchTable[i],N);
+                    ResultTable[i] = RechercheOptimisee(DataTable,SearchTable[i],N, R, D);
+                    if(ResultTable[i]!=-1)
+                    {
+                        count++;
+                        //printf("%i %i %i %i \n\n\r",count,i,SearchTable[i], ResultTable[i]);
+                    }
+                }
+            }  
         }
         printf("K = %i, Count = %i\n\n\r",K,count);
         SaveT3(listArg[5]);
@@ -234,6 +386,11 @@ void Testing::LoadModeConfig(void)
     {
         cout << "\n\r" << "Too much argument" << "\n\n\r";
     }
+}
+
+void Testing::ManualAutoConfig(void)
+{
+    
 }
 
 void Testing::ManualLoadConfig(void)
@@ -271,8 +428,10 @@ void Testing::ManualLoadConfig(void)
                     if(cin.good())
                     {
                         if(value>=0)
-                        result = hashy.RechercheHash(value,N);
-                        cout << "Value :" << value << " is found in index : "<< result << endl;
+                        {
+                            result = hashy.RechercheHash(value,N);
+                            cout << "Value :" << value << " is found in index : "<< result << endl;
+                        }
                     }
                     else
                     {
@@ -302,8 +461,10 @@ void Testing::ManualLoadConfig(void)
                     if(cin.good())
                     {
                         if(value>=0)
-                        result = bin.findNode(value);
-                        cout << "Value :" << value << " is found in index : "<< result << endl;
+                        {
+                            result = bin.findNode(value);
+                            cout << "Value :" << value << " is found in index : "<< result << endl;
+                        }
                     }
                     else
                     {
@@ -327,8 +488,10 @@ void Testing::ManualLoadConfig(void)
                     if(cin.good())
                     {
                         if(value>=0)
-                        result = RechercheSequentielle(DataTable,value,N);
-                        cout << "Value :" << value << " is found in index : "<< result << endl;
+                        {
+                            result = RechercheSequentielle(DataTable,value,N);
+                            cout << "Value :" << value << " is found in index : "<< result << endl;
+                        }
                     }
                     else
                     {
@@ -361,8 +524,10 @@ void Testing::ManualLoadConfig(void)
                     if(cin.good())
                     {
                         if(value>=0)
-                        result = RechercheBinaire(BigDataTable,value,N);
-                        cout << "Value :" << value << " is found in index : "<< result << endl;
+                        {
+                            result = RechercheBinaire(BigDataTable,value,N);
+                            cout << "Value :" << value << " is found in index : "<< result << endl;
+                        }
                     }
                     else
                     {
@@ -373,6 +538,32 @@ void Testing::ManualLoadConfig(void)
                 }
             }
             break;
+            case OPTIMIZE_SHORT:
+            case OPTIMIZE_LONG:
+            {
+                cout << "\n\r" << "OPTIMIZE" << "\n\n\r";
+                
+                while(value>=0)
+                {
+                    cout << "Enter a value to search (or negative value to quit): ";
+                    cin >> value;
+                    if(cin.good())
+                    {
+                        if(value>=0)
+                        {
+                            result = RechercheOptimisee(DataTable,value,N, R, D);
+                            cout << "Value :" << value << " is found in index : "<< result << endl;
+                        }
+                    }
+                    else
+                    {
+                        cout << "Wrong input\n\r";
+                    }
+                    cin.clear();
+                    cin.ignore();
+                }
+            }
+            break;  
         }
     }
     else if(nbArg<4)
@@ -537,6 +728,13 @@ void Testing::SaveT3(const char* address)
             {    
                 alg = "Recherche binaire";
             }
+            break;
+            
+            case OPTIMIZE_SHORT:
+            case OPTIMIZE_LONG:
+            {
+                alg = "Recherche optimisée";
+            }    
             break;
         }
         //Stats
