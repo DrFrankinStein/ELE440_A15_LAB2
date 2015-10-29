@@ -13,6 +13,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <cmath>
 
 #include "../Header/sequentielle.hpp"
 #include "../Header/binaire.hpp"
@@ -22,6 +23,8 @@
 
 #include "../Header/CommonFunc.hpp"
 #include "../Header/TriFusion.hpp"
+#include "../Header/TriInsertion.hpp"
+#include "../Header/TriBase.hpp"
 
 
 //void test(void);
@@ -74,6 +77,7 @@ private:
     algo_t algo = END_ALGO_T;
     
     string outputFile = "INIT";
+    string methodeTri = "Pas de tri";
     
     //auto mode
     /*enum option_t {NBR_DATA=0,RANK_DATA,DISPERTION_RATE,END_OPTION_T};

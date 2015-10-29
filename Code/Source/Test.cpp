@@ -754,8 +754,10 @@ void Testing::SaveT3(const char* address)
             }    
             break;
         }
-        //Stats
-        fprintf(textfile,"Algorithme de recherche = %s\n\nN=%i\nR=%i\nD=%i\n\nK=%i\nNBRE DE DONNEES TROUVEES = %i\n\n",alg.c_str(),N,R,D,K,count);
+        //Stats methodeTri
+        fprintf(textfile,"Algorithme de recherche = %s\nAlgorithme de tri = %s\n\n",alg.c_str(),methodeTri.c_str());
+        fprintf(textfile,"N=%i\nR=%i\nD=%i\n\n",N,R,D);
+        fprintf(textfile,"K=%i\nNBRE DE DONNEES TROUVEES = %i\n\n",K,count);
         //T1
         for(int i =0; i<(N-1);i++)
             fprintf(textfile,"%i\t",DataTable[i]);
@@ -1165,7 +1167,24 @@ void Testing::AutoRequest(void)
             }
 
             cout << "\n\r" << "BINARY" << "\n\n\r";
-            TriParFusion(BigDataTable, 0, N-1);
+            
+            if(D==0 || (D<5 && N<2000))
+            {
+                methodeTri = "Tri par Insertion";
+                TriParInsertion(BigDataTable,N);
+            }
+            else if(R<1000000)
+            {
+                int nbChiffre;
+                nbChiffre=(int)log10(R)+1;
+                methodeTri = "Tri par Base";
+                TriParBase(BigDataTable,N,nbChiffre);
+            }
+            else
+            {
+                methodeTri = "Tri par Fusion";
+                TriParFusion(BigDataTable, 0, N-1);
+            }
 
             for(int i =0; i<K; i++)
             {
@@ -1179,6 +1198,7 @@ void Testing::AutoRequest(void)
         case OPTIMIZE_LONG:
         {
             cout << "\n\r" << "OPTIMIZE" << "\n\n\r";
+            InitRechercheOptimisee(DataTable,N, R, D, &methodeTri);
             for(int i =0; i<K; i++)
             {
                 ResultTable[i] = RechercheOptimisee(DataTable,SearchTable[i],N, R, D);
@@ -1318,7 +1338,23 @@ void Testing::ManualRequest(void)
             }
 
             cout << "\n\r" << "BINARY" << "\n\n\r";
-            TriParFusion(BigDataTable, 0, N-1);
+            if(D==0 || (D<5 && N<2000))
+            {
+                methodeTri = "Tri par Insertion";
+                TriParInsertion(BigDataTable,N);
+            }
+            else if(R<1000000)
+            {
+                int nbChiffre;
+                nbChiffre=(int)log10(R)+1;
+                methodeTri = "Tri par Base";
+                TriParBase(BigDataTable,N,nbChiffre);
+            }
+            else
+            {
+                methodeTri = "Tri par Fusion";
+                TriParFusion(BigDataTable, 0, N-1);
+            }
 
             while(value>=0)
             {
@@ -1348,8 +1384,10 @@ void Testing::ManualRequest(void)
         case OPTIMIZE_SHORT:
         case OPTIMIZE_LONG:
         {
+            
+            
             cout << "\n\r" << "OPTIMIZE" << "\n\n\r";
-
+            InitRechercheOptimisee(DataTable,N, R, D, &methodeTri);
             while(value>=0)
             {
                 cout << "Enter a value to search (or negative value to quit): ";
