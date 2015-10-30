@@ -1,0 +1,12 @@
+ELE440-01 A15 Dossier de remise de laboratoire 2
+
+Équipe : 
+Julien Lemay LEMJ16059303
+Alexandre Lessard LESA30099400
+
+Le dossier de remise contient :
+
+Code 		-> Contient les codes sources du programme
+Exécutable 	-> Contient l'exécutable du programme
+Documentation 	-> Contient le rapport du laboratoire 2
+Annexe		-> Contient les autres fichiers importants
