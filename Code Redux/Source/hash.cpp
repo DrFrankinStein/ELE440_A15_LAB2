@@ -26,9 +26,9 @@ hashH::hashH(int N)
 }
 
 /**
- * Fonction pour placer la clé dans le bon bucket
- * @param cle : valeur à classer
- * @return l'index où cette valeur doit être classer
+ * Fonction pour placer la cle dans le bon bucket
+ * @param cle : valeur a classer
+ * @return l'index ou cette valeur doit être classer
  */
 int hashH::Hashing(int cle)
 {
@@ -41,7 +41,7 @@ int hashH::Hashing(int cle)
 
 /**
  * Ajoute une valeur dans la table de hashage
- * @param cle Valeur à ajoutée dans la table
+ * @param cle Valeur a ajoutee dans la table
  * @param i Index de la valeur
  */
 void hashH::AddItem(int cle, int i)
@@ -72,9 +72,9 @@ void hashH::AddItem(int cle, int i)
 }
 
 /**
- * Retourne le nombre d'item à l'index indiqué
- * @param index Index à vérifier
- * @return Nombre d'item à l'index indiqué
+ * Retourne le nombre d'item a l'index indique
+ * @param index Index a verifier
+ * @return Nombre d'item a l'index indique
  */
 int hashH::NumberOfItemsInIndex(int index)
 {
@@ -119,8 +119,8 @@ void hashH::PrintTable(void)
 }
 
 /**
- * Imprime les items de la hash table à l'index choisi
- * @param index Index de la hashtable à imprimer
+ * Imprime les items de la hash table a l'index choisi
+ * @param index Index de la hashtable a imprimer
  */
 void hashH::PrintItemsInIndex(int index)
 {
@@ -149,8 +149,8 @@ void hashH::PrintItemsInIndex(int index)
 
 /**
  * Recherche la valeur "cle" dans la table de hashage
- * @param cle Valeur à rechercher
- * @return L'index où se trouve la valeur ou -1 si non présente
+ * @param cle Valeur a rechercher
+ * @return L'index ou se trouve la valeur ou -1 si non presente
  */
 int hashH::RechercheHash(int cle)
 {
@@ -181,7 +181,7 @@ int hashH::RechercheHash(int cle)
 }
 
 /**
- * Retourne et remet à zéro le compte du nombre d'instructions
+ * Retourne et remet a zero le compte du nombre d'instructions
  * @return 
  */
 int hashH::RetourneBarometreInstructions(void)

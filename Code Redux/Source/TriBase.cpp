@@ -12,19 +12,19 @@ Barometre TriParBase(int Donnees[][2],int taille, int nbreChiffre)
     // Pour toutes les puissances de 10
     for(int i=0; i<nbreChiffre;i++)
     {
-        // initialiser le tableaux de comptage à zéro.
+        // initialiser le tableaux de comptage a zero.
         barometre.instructions++;
-        // Pour j allant de 0 à 9
+        // Pour j allant de 0 a 9
         for(int j =0; j<10;j++)//Initialisation des bases
         {
-            //initialiser a valeur à zéro
+            //initialiser a valeur a zero
             barometre.instructions++;
             positifChiffre[j]=0; 
             negatifChiffre[j]=0;
         }
         
         int tmp1, tmp2;
-        // Pour tout les nombres à trier
+        // Pour tout les nombres a trier
         for(int j=0; j<taille;j++)//Comptage des bases
         {
             barometre.instructions++;
@@ -35,7 +35,7 @@ Barometre TriParBase(int Donnees[][2],int taille, int nbreChiffre)
             // Si le nombre est positif
             if(Donnees[j][0]>=0)
             {
-                // Incrémenter de 1 la case correspondant du tableau de compteurs
+                // Incrementer de 1 la case correspondant du tableau de compteurs
                 positifChiffre[chiffre]++;
             }
             else
@@ -62,7 +62,7 @@ Barometre TriParBase(int Donnees[][2],int taille, int nbreChiffre)
             positifChiffre[k]+=positifChiffre[k-1];
         }
         
-        // Pour toutes les donnees à trier,
+        // Pour toutes les donnees a trier,
         for(int j=taille-1; j>=0;j--)
         {
             barometre.instructions++;
@@ -72,7 +72,7 @@ Barometre TriParBase(int Donnees[][2],int taille, int nbreChiffre)
             {
                 // diminuer la valeur de la case du tableau de compteurs de 1
                 positifChiffre[chiffre]--;
-                // Placer la donnée complète dans la nouvelle matrice à la case précisé par le nombre de la case du tableau de compteur.
+                // Placer la donnee complete dans la nouvelle matrice a la case precise par le nombre de la case du tableau de compteur.
                 tmpDonnees[positifChiffre[chiffre]][0]=Donnees[j][0];
                 tmpDonnees[positifChiffre[chiffre]][1]=Donnees[j][1];
             }

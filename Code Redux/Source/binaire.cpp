@@ -7,15 +7,15 @@
 using namespace std;
 
 /**
- * Fonction de recherche binaire... Attention de bien trier les données avant d'utiliser cette fonction
- * @param tableau Tableau de données à inspecter
- * @param cle Valeur à chercher dans le tableau
+ * Fonction de recherche binaire... Attention de bien trier les donnees avant d'utiliser cette fonction
+ * @param tableau Tableau de donnees e inspecter
+ * @param cle Valeur e chercher dans le tableau
  * @param N Nombre de valeur dans le tableau
- * @return L'index dans où se trouve la valeur ou -1 si non présente
+ * @return L'index dans ou se trouve la valeur ou -1 si non presente
  */
 int RechercheBinaire(int tableau[][2], int cle, int N, Barometre &barometre)
 {
-    // Le tableau doit être trié avant de faire les manipuations.
+    // Le tableau doit être trie avant de faire les manipuations.
     barometre.instructions++;
     int debut = 0;
     int fin = N-1;
@@ -44,6 +44,6 @@ int RechercheBinaire(int tableau[][2], int cle, int N, Barometre &barometre)
     }
     else
     {
-        return -1; // retourne -1 si la clé n'a pas été trouvée
+        return -1; // retourne -1 si la cle n'a pas ete trouvee
     }
 }

@@ -8,7 +8,7 @@ using namespace std;
 
 /**
  * Constructeur de noeud pour l'arbre
- * @param key Valeur à enregistrer
+ * @param key Valeur a enregistrer
  * @param number Index de la valeur
  */
 Node::Node(int key, int number, Barometre &barometre)
@@ -39,13 +39,12 @@ BinaryTree::BinaryTree(void)
 
 /**
  * Ajoute un noeud dans l'arbre
- * @param key Valeur à ajouter
- * @param number Index de la valeur à ajoutée
+ * @param key Valeur a ajouter
+ * @param number Index de la valeur a ajoutee
  */
 void BinaryTree::addnode(int key, int number)
 {
     barometre.instructions++;
-    //Node * newNode = new Node(key, number);
     bool exit=false;
     
     if(hasRoot==false)
@@ -78,7 +77,7 @@ void BinaryTree::addnode(int key, int number)
                     parent->leftChild = new Node(key, number, barometre);
                     parent->hasLeftChild = true;
                     exit=true;
-		}
+				}
                 
             }
             else
@@ -87,21 +86,21 @@ void BinaryTree::addnode(int key, int number)
                 if(focusNode->hasRightChild)
                     focusNode = focusNode->rightChild;
 				
-		else
-		{
+				else
+				{
                     parent->rightChild = new Node(key, number, barometre);
                     parent->hasRightChild = true;
                     exit = true;
-		}
+				}
             }
-	}	
+		}	
     }
 }
 
 /**
  * Cherche une valeur dans l'arbre
- * @param key Valeur à chercher
- * @return Index de la valeur, ou -1 si non présente
+ * @param key Valeur a chercher
+ * @return Index de la valeur, ou -1 si non presente
  */
 int BinaryTree::findNode(int key)
 {
@@ -121,21 +120,21 @@ int BinaryTree::findNode(int key)
             {
                 return -1;
             }
-	}
-	else
-	{
+		}
+		else
+		{
             barometre.instructions++;
             if(focusNode->hasRightChild)
                 focusNode = focusNode->rightChild;
             else
                 return -1;
-	}
+		}
     }
     return focusNode->number;
 }
 
 /**
- * Retourne et remet à zéro le compte du nombre d'instructions
+ * Retourne et remet a zero le compte du nombre d'instructions
  * @return 
  */
 int BinaryTree::RetourneBarometreInstructions(void)

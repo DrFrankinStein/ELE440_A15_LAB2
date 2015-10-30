@@ -5,22 +5,22 @@ BinaryTree * arbre;
 int(*BigDataTable)[2];
 
 /**
- * Fonction servant à initialiser les données selon le type de données à analyser
- * @param tableau Tableau contenant les données qu'il faut analyser
- * @param N Nombre de données dans le tableau
- * @param R Intervalle de données dans le tableau
- * @param D Taux de désordre des données
+ * Fonction servant a initialiser les donnees selon le type de donnees a analyser
+ * @param tableau Tableau contenant les donnees qu'il faut analyser
+ * @param N Nombre de donnees dans le tableau
+ * @param R Intervalle de donnees dans le tableau
+ * @param D Taux de desordre des donnees
  * @param methodeTri Pointeur d'une string pour fin d'enregistrement du type de tri
  */
 Barometre InitRechercheOptimisee(int *tableau, int N, int R, int D, string* methodeTri)
 {
     Barometre barometrePrep;
     barometrePrep.instructions=1;
-    // Pour un très petit nombre de données, la recherche séquentielle est la meilleure puisqu'on a pas besoin de trier les donner ou créer et balancer un arbre.
+    // Pour un tres petit nombre de donnees, la recherche sequentielle est la meilleure puisqu'on a pas besoin de trier les donner ou creer et balancer un arbre.
     if (N <= 20)
         barometrePrep.instructions++;
     
-    // Si la quantité de désordre est à 50% il n'y aura pas beaucoup besoin de balancer l'arbre.
+    // Si la quantite de desordre est a 50% il n'y aura pas beaucoup besoin de balancer l'arbre.
     else if(D == 50 || (R > (N + (N * 0.25))))
     {   
         barometrePrep.instructions++;
@@ -33,28 +33,28 @@ Barometre InitRechercheOptimisee(int *tableau, int N, int R, int D, string* meth
         barometrePrep.instructions = arbre->RetourneBarometreInstructions();
     }
 
-    // Pour tout le reste, celui ci est meilleur lors que les écarts entre les valeurs sont semblable.
+    // Pour tout le reste, celui ci est meilleur lors que les ecarts entre les valeurs sont semblable.
     else
     {
         BigDataTable = new int[N][2];
         
-        //Copier les données dans le nouveau tableau avec leur position
+        //Copier les donnees dans le nouveau tableau avec leur position
         for (int i = 0; i < N; i++)
         {
             barometrePrep.instructions++;
-            BigDataTable[i][0] = tableau[i]; // Premiere rangée = clé
-            BigDataTable[i][1] = i; // Deuxième rangée = position dans la liste non triée
+            BigDataTable[i][0] = tableau[i]; // Premiere rangee = cle
+            BigDataTable[i][1] = i; // Deuxieme rangee = position dans la liste non triee
         }
 
-        //Si le taux de désordre est 0, ou si le taux de désordre est plus petit que 5% et que le nombre 
-        //de données est plus petit que 2000
+        //Si le taux de desordre est 0, ou si le taux de desordre est plus petit que 5% et que le nombre 
+        //de donnees est plus petit que 2000
         if(D==0 || (D<5 && N<2000))
         {
             *methodeTri = "Tri par Insertion";
             barometrePrep.instructions+=TriParInsertion(BigDataTable,N).instructions;
         }
         
-        //Si l'intervalle des données est plus petit que 10^6
+        //Si l'intervalle des donnees est plus petit que 10^6
         else if(R<1000000)
         {
             int nbChiffre;
@@ -75,28 +75,28 @@ Barometre InitRechercheOptimisee(int *tableau, int N, int R, int D, string* meth
 
 /**
  * 
- * @param tableau Tableau contenant les données qu'il faut analyser
- * @param cle La valeur à chercher dans le tableau
- * @param N Nombre de données dans le tableau
- * @param R Intervalle de données dans le tableau
- * @param D Taux de désordre des données
- * @return L'index où se trouve la valeur dans le tableau ou -1 si non présent
+ * @param tableau Tableau contenant les donnees qu'il faut analyser
+ * @param cle La valeur a chercher dans le tableau
+ * @param N Nombre de donnees dans le tableau
+ * @param R Intervalle de donnees dans le tableau
+ * @param D Taux de desordre des donnees
+ * @return L'index où se trouve la valeur dans le tableau ou -1 si non present
  */
 int RechercheOptimisee(int *tableau, int cle, int N, int R, int D, Barometre &barometre) 
 {
     int index;
-    // Pour un très petit nombre de données, la recherche séquentielle est la meilleure puisqu'on a pas besoin de trier les donner ou créer et balancer un arbre.
+    // Pour un tres petit nombre de donnees, la recherche sequentielle est la meilleure puisqu'on a pas besoin de trier les donner ou creer et balancer un arbre.
     if (N <= 20)
     {
         index = RechercheSequentielle(tableau, cle, N, barometre);
     }
-    // Si la quantité de désordre est à 50% il n'y aura pas beaucoup besoin de balancer l'arbre.
+    // Si la quantite de desordre est a 50% il n'y aura pas beaucoup besoin de balancer l'arbre.
     else if(D == 50 || R > N + (N * 0.25))
     {
         index = arbre->findNode(cle);
         barometre.instructions+=arbre->RetourneBarometreInstructions();
     }
-    // Pour tout le reste, celui ci est meilleur lors que les écarts entre les valeurs sont semblable.
+    // Pour tout le reste, celui ci est meilleur lors que les ecarts entre les valeurs sont semblable.
     else
     {
         index = RechercheBinaire((int(*)[2])BigDataTable, cle, N,barometre);

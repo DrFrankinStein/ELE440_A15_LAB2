@@ -8,7 +8,7 @@
 using namespace std;
 
 /**
- * Échange 2 valeurs de places
+ * Echange 2 valeurs de places
  * @param a
  * @param b
  */
@@ -33,8 +33,8 @@ int randInt(int min, int max)
 }
 
 /**
- * Imprime un tableau de int à l'écran
- * @param T Tableau à imprimer
+ * Imprime un tableau de int a l'Ecran
+ * @param T Tableau a imprimer
  * @param n Taille du tableau
  */
 void printIntArray(int* T, int n)
@@ -47,11 +47,11 @@ void printIntArray(int* T, int n)
 }
 
 /**
- * Génère des données au "hasard" sans qu'il n'y ait de doublons
- * @param tableau Tableau à remplir
+ * Genere des donnees au "hasard" sans qu'il n'y ait de doublons
+ * @param tableau Tableau a remplir
  * @param N Taille du tableau
- * @param R Intervalle des données du tableau
- * @param D Taux de désordre du tableau
+ * @param R Intervalle des donnees du tableau
+ * @param D Taux de desordre du tableau
  */
 void GenererDonnees (int *tableau, int N, int R, int D)
 {
@@ -83,9 +83,9 @@ void GenererDonnees (int *tableau, int N, int R, int D)
         }
         else
             tableau[0] = randInt(0,R);
-        // Les données sont triées
+        // Les donnees sont triees
         
-        // mettre les données en désordre.
+        // mettre les donnees en desordre.
         
         int m;
         int M = N/2;
