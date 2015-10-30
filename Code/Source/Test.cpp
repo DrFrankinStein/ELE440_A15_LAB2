@@ -3,7 +3,9 @@
 #include "../Header/Test.hpp"
 
 
-
+/**
+ * Constructeur de Testing
+ */
 Testing::Testing(void)
 {
     
@@ -585,6 +587,12 @@ void Testing::ManualLoadConfig(void)
     }
 }
 */
+
+/**
+ * Charge le fichier de données
+ * @param address Adresse du fichier de données
+ * @return True si le fichier est valide
+ */
 bool Testing::LoadT1(const char* address)
 {
     FILE * textfile;
@@ -649,6 +657,11 @@ bool Testing::LoadT1(const char* address)
     return true;
 }
 
+/**
+ * Charge le fichier de données à rechercher
+ * @param address Adresse du fichier à charger
+ * @return True si le fichier est valide
+ */
 bool Testing::LoadT2(const char* address)
 {
     FILE * textfile;
@@ -708,6 +721,10 @@ bool Testing::LoadT2(const char* address)
     return true;
 }
 
+/**
+ * Sauvegarder les résultats et statistiques dans un fichier
+ * @param address Nom du fichier à créer
+ */
 void Testing::SaveT3(const char* address)
 {
     FILE * textfile;
@@ -775,6 +792,9 @@ void Testing::SaveT3(const char* address)
     fclose(textfile);
 }
 
+/**
+ * Fonction à appeler pour configurer les tests
+ */
 void Testing::EnterConfig(void)
 {
     //Enter data type : auto or load
@@ -795,6 +815,9 @@ void Testing::EnterConfig(void)
     SetAlgo();  
 }
 
+/**
+ * Configure comment les données sont chargées
+ */
 void Testing::SetData(void)
 {
     char c;
@@ -831,6 +854,9 @@ void Testing::SetData(void)
     }    
 }
 
+/**
+ * Configure N, R et D
+ */
 void Testing::SetNRD(void)
 {
     int value;
@@ -919,6 +945,7 @@ void Testing::SetNRD(void)
     //printIntArray(DataTable,N);
 }
 
+
 void Testing::SetDataFileAddress(void)
 {
     string str;
@@ -981,13 +1008,16 @@ void Testing::SetSearch(void)
     }
 }
 
+/**
+ * Mettre l'adresse pour le fichier des requetes
+ */
 void Testing::SetSearchFileAddress(void)
 {
     string str;
     bool exit =false;
     while(!exit)
     {
-        cout << "Enter the adress of the search file: ";
+        cout << "Enter the address of the search file: ";
         cin >> str;
         if(cin.good())
         {
@@ -1008,13 +1038,16 @@ void Testing::SetSearchFileAddress(void)
     }
 }
 
+/**
+ * Mettre l'adresse du fichier des statistiques à créer/modifier
+ */
 void Testing::SetOutputFileAddress(void)
 {
     string str;
     bool exit =false;
     while(!exit)
     {
-        cout << "Enter the adress of the stats file: ";
+        cout << "Enter the address of the stats file: ";
         cin >> str;
         if(cin.good())
         {
@@ -1028,6 +1061,9 @@ void Testing::SetOutputFileAddress(void)
     }
 }
 
+/**
+ * Choix de l'algorithme
+ */
 void Testing::SetAlgo(void)
 {
     char c;
@@ -1079,6 +1115,9 @@ void Testing::SetAlgo(void)
     }
 }
 
+/**
+ * Démarrer le test
+ */
 void Testing::StartTest(void)
 {
     switch(cmd)
@@ -1099,6 +1138,9 @@ void Testing::StartTest(void)
     }
 }
 
+/**
+ * Si les requêtes viennent d'un fichier 
+ */
 void Testing::AutoRequest(void)
 {
     count=0;
@@ -1109,14 +1151,14 @@ void Testing::AutoRequest(void)
         {    
             cout << "\n\r" << "HASH TABLE" << "\n\n\r";
 
-            hashH hashy;
+            hashH hashy(N);
             for(int i = 0; i < N; i++)
             {
                 hashy.AddItem(DataTable[i],i);
             }
             for(int i =0; i<K; i++)
             {
-                ResultTable[i] = hashy.RechercheHash(SearchTable[i],N);
+                ResultTable[i] = hashy.RechercheHash(SearchTable[i]);
                 if(ResultTable[i]!=-1)
                     count++;
             }
@@ -1211,6 +1253,9 @@ void Testing::AutoRequest(void)
     SaveT3(outputFile.c_str());
 }
 
+/**
+ * Si les requêtes sont entrées manuellement
+ */
 void Testing::ManualRequest(void)
 {
     int value = 0;
@@ -1226,7 +1271,7 @@ void Testing::ManualRequest(void)
         {    
             cout << "\n\r" << "HASH TABLE" << "\n\n\r";
 
-            hashH hashy;
+            hashH hashy(N);
             for(int i = 0; i < N; i++)
             {
                 hashy.AddItem(DataTable[i],i);
@@ -1242,7 +1287,7 @@ void Testing::ManualRequest(void)
                     {
                         K++;
                         search.push_back(value);
-                        result.push_back(hashy.RechercheHash(value,N));
+                        result.push_back(hashy.RechercheHash(value));
                         if(result.back()!=-1)
                             count++;
                         cout << "Value :" << value << " is found in index : "<< result.back() << endl;

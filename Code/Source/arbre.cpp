@@ -6,23 +6,40 @@
 
 using namespace std;
 
+/**
+ * Constructeur de noeud pour l'arbre
+ * @param key Valeur à enregistrer
+ * @param number Index de la valeur
+ */
 Node::Node(int key, int number)
 {
     this->key = key;
     this->number = number;
     hasLeftChild = false; hasRightChild = false;
 }
+
+/**
+ * Destructeur de Noeud
+ */
 Node::~Node(void)
 {
     delete leftChild;
     delete rightChild;
 }
 
+/**
+ * Constructeur de l'arbre binaire
+ */
 BinaryTree::BinaryTree(void)
 {
     hasRoot=false;
 }
 
+/**
+ * Ajoute un noeud dans l'arbre
+ * @param key Valeur à ajouter
+ * @param number Index de la valeur à ajoutée
+ */
 void BinaryTree::addnode(int key, int number)
 {
     //Node * newNode = new Node(key, number);
@@ -70,6 +87,11 @@ void BinaryTree::addnode(int key, int number)
     }
 }
 
+/**
+ * Cherche une valeur dans l'arbre
+ * @param key Valeur à chercher
+ * @return Index de la valeur, ou -1 si non présente
+ */
 int BinaryTree::findNode(int key)
 {
     Node * focusNode = root;

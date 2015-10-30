@@ -7,6 +7,11 @@
 
 using namespace std;
 
+/**
+ * Échange 2 valeurs de places
+ * @param a
+ * @param b
+ */
 void swap(int *a, int *b)
 {
     int tmp = *a;
@@ -14,6 +19,12 @@ void swap(int *a, int *b)
     *b=tmp;
 }
 
+/**
+ * Retourne une valeur entre min et max
+ * @param min
+ * @param max
+ * @return 
+ */
 int randInt(int min, int max)
 {
     //srand(time(NULL));
@@ -21,6 +32,11 @@ int randInt(int min, int max)
     return (rand()%range)+min; 
 }
 
+/**
+ * Imprime un tableau de int à l'écran
+ * @param T Tableau à imprimer
+ * @param n Taille du tableau
+ */
 void printIntArray(int* T, int n)
 {
     for(int i =0;i<n;i++)
@@ -30,6 +46,13 @@ void printIntArray(int* T, int n)
     printf("\n\n\r");
 }
 
+/**
+ * Génère des données au "hasard" sans qu'il n'y ait de doublons
+ * @param tableau Tableau à remplir
+ * @param N Taille du tableau
+ * @param R Intervalle des données du tableau
+ * @param D Taux de désordre du tableau
+ */
 void GenererDonnees (int *tableau, int N, int R, int D)
 {
     srand(time(NULL));

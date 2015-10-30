@@ -6,6 +6,13 @@
 
 using namespace std;
 
+/**
+ * Fonction de recherche binaire... Attention de bien trier les données avant d'utiliser cette fonction
+ * @param tableau Tableau de données à inspecter
+ * @param cle Valeur à chercher dans le tableau
+ * @param N Nombre de valeur dans le tableau
+ * @return L'index dans où se trouve la valeur ou -1 si non présente
+ */
 int RechercheBinaire(int tableau[][2], int cle, int N)
 {
     // Le tableau doit être trié avant de faire les manipuations.

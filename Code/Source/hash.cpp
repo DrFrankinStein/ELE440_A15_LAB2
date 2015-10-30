@@ -6,8 +6,14 @@
 
 using namespace std;
 
-hashH::hashH(void)
+/**
+ * Constructeur de hashH
+ * @param N : Taille de la table de hashage
+ */
+hashH::hashH(int N)
 {
+    tableSize = N;
+    HashTable = new item*[tableSize];
     for(int i = 0; i < tableSize; i++)
     {
         HashTable[i] = new item;
@@ -17,9 +23,13 @@ hashH::hashH(void)
     }
 }
 
+/**
+ * Fonction pour placer la clé dans le bon bucket
+ * @param cle : valeur à classer
+ * @return l'index où cette valeur doit être classer
+ */
 int hashH::Hashing(int cle)
 {
-    
     int index;
     
     index = cle % tableSize;
@@ -27,6 +37,11 @@ int hashH::Hashing(int cle)
     return index;
 }
 
+/**
+ * Ajoute une valeur dans la table de hashage
+ * @param cle Valeur à ajoutée dans la table
+ * @param i Index de la valeur
+ */
 void hashH::AddItem(int cle, int i)
 {
     int index = Hashing(cle);
@@ -50,6 +65,11 @@ void hashH::AddItem(int cle, int i)
     }
 }
 
+/**
+ * Retourne le nombre d'item à l'index indiqué
+ * @param index Index à vérifier
+ * @return Nombre d'item à l'index indiqué
+ */
 int hashH::NumberOfItemsInIndex(int index)
 {
     int count = 0;
@@ -70,7 +90,10 @@ int hashH::NumberOfItemsInIndex(int index)
     }
 }
 
-void hashH::PrintTable()
+/**
+ * Imprime la Hash Table
+ */
+void hashH::PrintTable(void)
 {
     int number;
     for(int i = 0; i < tableSize; i++)
@@ -85,6 +108,10 @@ void hashH::PrintTable()
     }
 }
 
+/**
+ * Imprime les items de la hash table à l'index choisi
+ * @param index Index de la hashtable à imprimer
+ */
 void hashH::PrintItemsInIndex(int index)
 {
     item* Ptr = HashTable[index];
@@ -110,7 +137,12 @@ void hashH::PrintItemsInIndex(int index)
     
 }
 
-int hashH::RechercheHash(int cle, int N)
+/**
+ * Recherche la valeur "cle" dans la table de hashage
+ * @param cle Valeur à rechercher
+ * @return L'index où se trouve la valeur ou -1 si non présente
+ */
+int hashH::RechercheHash(int cle)
 {
     int index;
     bool exit= false;
