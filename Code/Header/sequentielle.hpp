@@ -9,12 +9,14 @@
 #include <iostream>
 #include <string>
 
+#include "../Header/CommonFunc.hpp"
+
 using namespace std;
 
 #ifndef SEQUENTIELLE_HPP
 #define	SEQUENTIELLE_HPP
 
-int RechercheSequentielle(int *tableau, int cle, int N);
+int RechercheSequentielle(int *tableau, int cle, int N,Barometre &barometre);
 
 #endif	/* SEQUENTIELLE_HPP */
 

@@ -12,10 +12,12 @@ using namespace std;
  */
 hashH::hashH(int N)
 {
+    barometre.instructions=1;
     tableSize = N;
     HashTable = new item*[tableSize];
     for(int i = 0; i < tableSize; i++)
     {
+        barometre.instructions++;
         HashTable[i] = new item;
         HashTable[i]->cle = -1;
         HashTable[i]->i = -1;
@@ -31,7 +33,7 @@ hashH::hashH(int N)
 int hashH::Hashing(int cle)
 {
     int index;
-    
+    barometre.instructions++;
     index = cle % tableSize;
     
     return index;
@@ -44,14 +46,17 @@ int hashH::Hashing(int cle)
  */
 void hashH::AddItem(int cle, int i)
 {
+    barometre.instructions++;
     int index = Hashing(cle);
     if (HashTable[index]->cle == -1)
     {
+        barometre.instructions++;
         HashTable[index]->cle = cle;
         HashTable[index]->i = i;
     }
     else
     {
+        barometre.instructions++;
         item* Ptr = HashTable[index];
         item* n = new item;
         n->cle = cle;
@@ -59,6 +64,7 @@ void hashH::AddItem(int cle, int i)
         n->next = NULL;
         while(Ptr->next != NULL)
         {
+            barometre.instructions++;
             Ptr = Ptr->next;
         }
         Ptr->next = n;
@@ -72,17 +78,21 @@ void hashH::AddItem(int cle, int i)
  */
 int hashH::NumberOfItemsInIndex(int index)
 {
+    barometre.instructions++;
     int count = 0;
     if(HashTable[index]->cle == -1)
     {
+        barometre.instructions++;
         return count;
     }
     else
     {
+        barometre.instructions++;
         count++;
         item* Ptr = HashTable[index];
         while(Ptr->next != NULL)
         {
+            barometre.instructions++;
             count++;
             Ptr = Ptr->next;
         }
@@ -144,6 +154,7 @@ void hashH::PrintItemsInIndex(int index)
  */
 int hashH::RechercheHash(int cle)
 {
+    barometre.instructions++;
     int index;
     bool exit= false;
         
@@ -153,16 +164,30 @@ int hashH::RechercheHash(int cle)
         
     while(Ptr->cle != cle && Ptr->cle != -1 && exit!=true)
     {
+        barometre.instructions++;
         if(Ptr->next==NULL)
             exit = true;
         else
             Ptr = Ptr->next;
     }
         
+    barometre.instructions++;
     if (Ptr->cle == -1 || exit == true)
     {
         return -1;
     }
     else    
         return Ptr->i;
+}
+
+/**
+ * Retourne et remet à zéro le compte du nombre d'instructions
+ * @return 
+ */
+int hashH::RetourneBarometreInstructions(void)
+{
+    int tmp = barometre.instructions;
+    barometre.instructions=0;
+    
+    return tmp;    
 }

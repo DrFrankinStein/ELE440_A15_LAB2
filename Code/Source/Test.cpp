@@ -2,13 +2,13 @@
 
 #include "../Header/Test.hpp"
 
-
 /**
  * Constructeur de Testing
  */
 Testing::Testing(void)
 {
-    
+    barometrePrep.instructions=0;
+    barometreRech.instructions=0;
 }
 
 /**
@@ -775,6 +775,8 @@ void Testing::SaveT3(const char* address)
         fprintf(textfile,"Algorithme de recherche = %s\nAlgorithme de tri = %s\n\n",alg.c_str(),methodeTri.c_str());
         fprintf(textfile,"N=%i\nR=%i\nD=%i\n\n",N,R,D);
         fprintf(textfile,"K=%i\nNBRE DE DONNEES TROUVEES = %i\n\n",K,count);
+        fprintf(textfile,"Tp= %llu\nTr= %llu\n",barometrePrep.instructions,barometreRech.instructions); 
+        fprintf(textfile,"Tt= %llu\nTa= %llu\n\n",barometrePrep.instructions+barometreRech.instructions,(barometrePrep.instructions+barometreRech.instructions)/K);
         //T1
         for(int i =0; i<(N-1);i++)
             fprintf(textfile,"%i\t",DataTable[i]);
@@ -790,6 +792,57 @@ void Testing::SaveT3(const char* address)
     }
     
     fclose(textfile);
+}
+
+/**
+ * Permet d'afficher les statistiques à l'écran
+ */
+void Testing::ShowStats(void)
+{
+    string alg;
+    switch(algo)
+    {
+        case HASH_SHORT: 
+        case HASH_LONG:
+        {    
+            alg = "Table de hachage";
+        }    
+        break;
+
+        case TREE_SHORT: 
+        case TREE_LONG:
+        {
+            alg = "Arbre Binaire";
+        }
+        break;    
+
+        case SEQ_SHORT: 
+        case SEQ_LONG:
+        {
+            alg = "Recherche sequencielle";
+        }
+        break;
+
+        case BIN_SHORT:
+        case BIN_LONG:
+        {    
+            alg = "Recherche binaire";
+        }
+        break;
+
+        case OPTIMIZE_SHORT:
+        case OPTIMIZE_LONG:
+        {
+            alg = "Recherche optimisee";
+        }    
+        break;
+    }
+    //Stats methodeTri
+    printf("\n\rAlgorithme de recherche = %s\n\rAlgorithme de tri = %s\n\n\r",alg.c_str(),methodeTri.c_str());
+    printf("N=%i\n\rR=%i\n\rD=%i\n\n\r",N,R,D);
+    printf("K=%i\n\rNBRE DE DONNEES TROUVEES = %i\n\n\r",K,count);
+    printf("Tp= %llu\n\rTr= %llu\n\r",barometrePrep.instructions,barometreRech.instructions); 
+    printf("Tt= %llu\n\rTa= %llu\n\n\r",barometrePrep.instructions+barometreRech.instructions,(barometrePrep.instructions+barometreRech.instructions)/K);
 }
 
 /**
@@ -1149,37 +1202,41 @@ void Testing::AutoRequest(void)
         case HASH_SHORT: 
         case HASH_LONG:
         {    
-            cout << "\n\r" << "HASH TABLE" << "\n\n\r";
+            //cout << "\n\r" << "HASH TABLE" << "\n\n\r";
 
             hashH hashy(N);
             for(int i = 0; i < N; i++)
             {
                 hashy.AddItem(DataTable[i],i);
             }
+            barometrePrep.instructions = hashy.RetourneBarometreInstructions();
             for(int i =0; i<K; i++)
             {
                 ResultTable[i] = hashy.RechercheHash(SearchTable[i]);
                 if(ResultTable[i]!=-1)
                     count++;
             }
+            barometreRech.instructions = hashy.RetourneBarometreInstructions();
         }    
         break;
 
         case TREE_SHORT: 
         case TREE_LONG:
         {
-            cout << "\n\r" << "TREE" << "\n\n\r";
+            //cout << "\n\r" << "TREE" << "\n\n\r";
             BinaryTree bin;
             for(int i =0; i<N; i++)
             {
                 bin.addnode(DataTable[i],i);
             }
+            barometrePrep.instructions=bin.RetourneBarometreInstructions();
             for(int i =0; i<K; i++)
             {
                 ResultTable[i] = bin.findNode(SearchTable[i]);
                 if(ResultTable[i]!=-1)
                     count++;
             }
+            barometreRech.instructions = bin.RetourneBarometreInstructions();
         }
 
         break;    
@@ -1187,10 +1244,10 @@ void Testing::AutoRequest(void)
         case SEQ_SHORT: 
         case SEQ_LONG:
         {
-            cout << "\n\r" << "SEQUENTIAL" << "\n\n\r";
+            //cout << "\n\r" << "SEQUENTIAL" << "\n\n\r";
             for(int i =0; i<K; i++)
             {
-                ResultTable[i] = RechercheSequentielle(DataTable,SearchTable[i],N);
+                ResultTable[i] = RechercheSequentielle(DataTable,SearchTable[i],N,barometreRech);
                 if(ResultTable[i]!=-1)
                     count++;
             }
@@ -1204,33 +1261,34 @@ void Testing::AutoRequest(void)
             int i;
             for (i = 0; i < N; i++)
             {
+                barometrePrep.instructions++;
                 BigDataTable[i][0] = DataTable[i]; // Premiere rangee = cle
                 BigDataTable[i][1] = i; // Deuxieme rangee = position dans la liste non triee
             }
 
-            cout << "\n\r" << "BINARY" << "\n\n\r";
+            //cout << "\n\r" << "BINARY" << "\n\n\r";
             
             if(D==0 || (D<5 && N<2000))
             {
                 methodeTri = "Tri par Insertion";
-                TriParInsertion(BigDataTable,N);
+                barometrePrep.instructions+=TriParInsertion(BigDataTable,N).instructions;
             }
             else if(R<1000000)
             {
                 int nbChiffre;
                 nbChiffre=(int)log10(R)+1;
                 methodeTri = "Tri par Base";
-                TriParBase(BigDataTable,N,nbChiffre);
+                barometrePrep.instructions+=TriParBase(BigDataTable,N,nbChiffre).instructions;
             }
             else
             {
                 methodeTri = "Tri par Fusion";
-                TriParFusion(BigDataTable, 0, N-1);
+                barometrePrep.instructions+=TriParFusion(BigDataTable, 0, N-1).instructions;
             }
 
             for(int i =0; i<K; i++)
             {
-                ResultTable[i] = RechercheBinaire(BigDataTable,SearchTable[i],N);
+                ResultTable[i] = RechercheBinaire(BigDataTable,SearchTable[i],N,barometreRech);
                 if(ResultTable[i]!=-1)
                     count++;
             }
@@ -1239,17 +1297,18 @@ void Testing::AutoRequest(void)
         case OPTIMIZE_SHORT:
         case OPTIMIZE_LONG:
         {
-            cout << "\n\r" << "OPTIMIZE" << "\n\n\r";
-            InitRechercheOptimisee(DataTable,N, R, D, &methodeTri);
+            //cout << "\n\r" << "OPTIMIZE" << "\n\n\r";
+            barometrePrep.instructions = InitRechercheOptimisee(DataTable,N, R, D, &methodeTri).instructions;
             for(int i =0; i<K; i++)
             {
-                ResultTable[i] = RechercheOptimisee(DataTable,SearchTable[i],N, R, D);
+                ResultTable[i] = RechercheOptimisee(DataTable,SearchTable[i],N, R, D,barometreRech);
                 if(ResultTable[i]!=-1)
                     count++;
             }
         }  
     }
-    printf("K = %i, Count = %i\n\n\r",K,count);
+    //printf("K = %i, Count = %i\n\n\r",K,count);
+    ShowStats();
     SaveT3(outputFile.c_str());
 }
 
@@ -1269,13 +1328,14 @@ void Testing::ManualRequest(void)
         case HASH_SHORT: 
         case HASH_LONG:
         {    
-            cout << "\n\r" << "HASH TABLE" << "\n\n\r";
+            //cout << "\n\r" << "HASH TABLE" << "\n\n\r";
 
             hashH hashy(N);
             for(int i = 0; i < N; i++)
             {
                 hashy.AddItem(DataTable[i],i);
             }
+            barometrePrep.instructions = hashy.RetourneBarometreInstructions();
 
             while(value>=0)
             {
@@ -1290,6 +1350,7 @@ void Testing::ManualRequest(void)
                         result.push_back(hashy.RechercheHash(value));
                         if(result.back()!=-1)
                             count++;
+                        barometreRech.instructions+=hashy.RetourneBarometreInstructions();
                         cout << "Value :" << value << " is found in index : "<< result.back() << endl;
                     }
                 }
@@ -1307,13 +1368,13 @@ void Testing::ManualRequest(void)
         case TREE_SHORT: 
         case TREE_LONG:
         {
-            cout << "\n\r" << "TREE" << "\n\n\r";
+            //cout << "\n\r" << "TREE" << "\n\n\r";
             BinaryTree bin;
             for(int i =0; i<N; i++)
             {
                 bin.addnode(DataTable[i],i);
             }
-
+            barometrePrep.instructions=bin.RetourneBarometreInstructions();
             while(value>=0)
             {
                 cout << "Enter a value to search (or negative value to quit): ";
@@ -1327,6 +1388,7 @@ void Testing::ManualRequest(void)
                         result.push_back(bin.findNode(value));
                         if(result.back()!=-1)
                             count++;
+                        barometreRech.instructions+=bin.RetourneBarometreInstructions();
                         cout << "Value :" << value << " is found in index : "<< result.back() << endl;
                     }
                 }
@@ -1343,7 +1405,7 @@ void Testing::ManualRequest(void)
         case SEQ_SHORT: 
         case SEQ_LONG:
         {
-            cout << "\n\r" << "SEQ" << "\n\n\r";
+            //cout << "\n\r" << "SEQ" << "\n\n\r";
 
             while(value>=0)
             {
@@ -1355,7 +1417,7 @@ void Testing::ManualRequest(void)
                     {
                         K++;
                         search.push_back(value);
-                        result.push_back(RechercheSequentielle(DataTable,value,N));
+                        result.push_back(RechercheSequentielle(DataTable,value,N,barometreRech));
                         if(result.back()!=-1)
                             count++;
                         cout << "Value :" << value << " is found in index : "<< result.back() << endl;
@@ -1378,27 +1440,28 @@ void Testing::ManualRequest(void)
             int i;
             for (i = 0; i < N; i++)
             {
+                barometrePrep.instructions++;
                 BigDataTable[i][0] = DataTable[i]; // Premiere rangee = cle
                 BigDataTable[i][1] = i; // Deuxieme rangee = position dans la liste non triee
             }
 
-            cout << "\n\r" << "BINARY" << "\n\n\r";
+            //cout << "\n\r" << "BINARY" << "\n\n\r";
             if(D==0 || (D<5 && N<2000))
             {
                 methodeTri = "Tri par Insertion";
-                TriParInsertion(BigDataTable,N);
+                barometrePrep.instructions+=TriParInsertion(BigDataTable,N).instructions;
             }
             else if(R<1000000)
             {
                 int nbChiffre;
                 nbChiffre=(int)log10(R)+1;
                 methodeTri = "Tri par Base";
-                TriParBase(BigDataTable,N,nbChiffre);
+                barometrePrep.instructions+=TriParBase(BigDataTable,N,nbChiffre).instructions;
             }
             else
             {
                 methodeTri = "Tri par Fusion";
-                TriParFusion(BigDataTable, 0, N-1);
+                barometrePrep.instructions+=TriParFusion(BigDataTable, 0, N-1).instructions;
             }
 
             while(value>=0)
@@ -1411,7 +1474,7 @@ void Testing::ManualRequest(void)
                     {
                         K++;
                         search.push_back(value);
-                        result.push_back(RechercheBinaire(BigDataTable,value,N));
+                        result.push_back(RechercheBinaire(BigDataTable,value,N,barometreRech));
                         if(result.back()!=-1)
                             count++;
                         cout << "Value :" << value << " is found in index : "<< result.back() << endl;
@@ -1429,10 +1492,8 @@ void Testing::ManualRequest(void)
         case OPTIMIZE_SHORT:
         case OPTIMIZE_LONG:
         {
-            
-            
-            cout << "\n\r" << "OPTIMIZE" << "\n\n\r";
-            InitRechercheOptimisee(DataTable,N, R, D, &methodeTri);
+            //cout << "\n\r" << "OPTIMIZE" << "\n\n\r";
+            barometrePrep.instructions = InitRechercheOptimisee(DataTable,N, R, D, &methodeTri).instructions;
             while(value>=0)
             {
                 cout << "Enter a value to search (or negative value to quit): ";
@@ -1443,7 +1504,7 @@ void Testing::ManualRequest(void)
                     {
                         K++;
                         search.push_back(value);
-                        result.push_back(RechercheOptimisee(DataTable,value,N, R, D));
+                        result.push_back(RechercheOptimisee(DataTable,value,N, R, D,barometreRech));
                         if(result.back()!=-1)
                             count++;
                         cout << "Value :" << value << " is found in index : "<< result.back() << endl;
@@ -1461,6 +1522,7 @@ void Testing::ManualRequest(void)
     }
     SearchTable = &search[0];
     ResultTable = &result[0];
-    printf("K = %i, Count = %i\n\n\r",K,count);
+    //printf("K = %i, Count = %i\n\n\r",K,count);
+    ShowStats();
     SaveT3(outputFile.c_str());
 }

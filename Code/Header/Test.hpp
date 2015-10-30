@@ -58,6 +58,7 @@ private:
     int *ResultTable;//T3
     int K, N, R, D;
     int count;
+    Barometre barometrePrep,barometreRech;
     
     //all (static here???)
     enum command_t {AUTO_SHORT=0, AUTO_LONG, LOAD_SHORT, LOAD_LONG, 
@@ -94,8 +95,8 @@ private:
     bool LoadT1(const char* address);
     bool LoadT2(const char* address);
     void SaveT3(const char* address);
-    
-    
+    void ShowStats(void);
+        
     void SetData(void);
     void SetNRD(void);
     void SetDataFileAddress(void);
@@ -105,10 +106,7 @@ private:
     void SetAlgo(void);
     
     void AutoRequest(void);
-    void ManualRequest(void);
-    
-    
-    
+    void ManualRequest(void);    
 };
 
 #endif	/* TEST_HPP */

@@ -11,8 +11,9 @@ using namespace std;
  * @param key Valeur à enregistrer
  * @param number Index de la valeur
  */
-Node::Node(int key, int number)
+Node::Node(int key, int number, Barometre &barometre)
 {
+    barometre.instructions++;
     this->key = key;
     this->number = number;
     hasLeftChild = false; hasRightChild = false;
@@ -32,6 +33,7 @@ Node::~Node(void)
  */
 BinaryTree::BinaryTree(void)
 {
+    barometre.instructions=1;
     hasRoot=false;
 }
 
@@ -42,43 +44,52 @@ BinaryTree::BinaryTree(void)
  */
 void BinaryTree::addnode(int key, int number)
 {
+    barometre.instructions++;
     //Node * newNode = new Node(key, number);
     bool exit=false;
     
     if(hasRoot==false)
     {
-        root = new Node(key, number);
+        barometre.instructions++;
+        root = new Node(key, number, barometre);
         hasRoot=true;
     }
     else
     {
-    	Node * focusNode = root;	
+    	
+        barometre.instructions++;
+        Node * focusNode = root;	
     	Node * parent;
 		
     	while(!exit)
     	{
+            barometre.instructions++;
             parent = focusNode;
-			
+		
+            barometre.instructions++;
             if(key < focusNode->key)
             {
+                
                 if(focusNode->hasLeftChild)
                     focusNode = focusNode->leftChild;
 				
                 else
                 {
-                    parent->leftChild = new Node(key, number);
+                    parent->leftChild = new Node(key, number, barometre);
                     parent->hasLeftChild = true;
                     exit=true;
 		}
+                
             }
             else
             {
+                
                 if(focusNode->hasRightChild)
                     focusNode = focusNode->rightChild;
 				
 		else
 		{
-                    parent->rightChild = new Node(key, number);
+                    parent->rightChild = new Node(key, number, barometre);
                     parent->hasRightChild = true;
                     exit = true;
 		}
@@ -95,18 +106,25 @@ void BinaryTree::addnode(int key, int number)
 int BinaryTree::findNode(int key)
 {
     Node * focusNode = root;
-	
+    barometre.instructions++;
     while(focusNode->key != key)
     {
-    	if(key < focusNode->key)
+    	barometre.instructions++;
+        if(key < focusNode->key)
     	{
+            barometre.instructions++;
             if(focusNode->hasLeftChild)
+            {
                 focusNode = focusNode->leftChild;
+            }
             else
+            {
                 return -1;
+            }
 	}
 	else
 	{
+            barometre.instructions++;
             if(focusNode->hasRightChild)
                 focusNode = focusNode->rightChild;
             else
@@ -114,6 +132,18 @@ int BinaryTree::findNode(int key)
 	}
     }
     return focusNode->number;
+}
+
+/**
+ * Retourne et remet à zéro le compte du nombre d'instructions
+ * @return 
+ */
+int BinaryTree::RetourneBarometreInstructions(void)
+{
+    int tmp = barometre.instructions;
+    barometre.instructions=0;
+    
+    return tmp;    
 }
 
 

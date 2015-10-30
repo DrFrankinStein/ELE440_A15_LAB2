@@ -9,12 +9,14 @@
 #include <iostream>
 #include <string>
 
+#include "../Header/CommonFunc.hpp"
+
 using namespace std;
 
 #ifndef BINAIRE_HPP
 #define	BINAIRE_HPP
 
-int RechercheBinaire(int Tableau[][2], int cle, int N);
+int RechercheBinaire(int Tableau[][2], int cle, int N, Barometre &barometre);
 
 #endif	/* BINAIRE_HPP */
 

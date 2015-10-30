@@ -9,6 +9,8 @@
 #include <iostream>
 #include <string>
 
+#include "../Header/CommonFunc.hpp"
+
 using namespace std;
 
 #ifndef HASH_HPP
@@ -22,6 +24,7 @@ class hashH
 private:
     
     int tableSize;
+    Barometre barometre;
     
     struct item
     {
@@ -41,7 +44,7 @@ public:
     void PrintTable();
     void PrintItemsInIndex(int index);
     int RechercheHash(int cle);
-
+    int RetourneBarometreInstructions(void);
 };
 //
 

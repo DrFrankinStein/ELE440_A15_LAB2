@@ -17,13 +17,15 @@
 #include "../Header/TriInsertion.hpp"
 #include "../Header/TriBase.hpp"
 
+#include "../Header/CommonFunc.hpp"
+
 using namespace std;
 
 #ifndef OPTIMISEE_HPP
 #define	OPTIMISEE_HPP
 
-void InitRechercheOptimisee(int *tableau, int N, int R, int D, string* methodeTri);
-int RechercheOptimisee(int *tableau, int cle, int N, int R, int D);
+Barometre InitRechercheOptimisee(int *tableau, int N, int R, int D, string* methodeTri);
+int RechercheOptimisee(int *tableau, int cle, int N, int R, int D, Barometre &barometre);
 
 #endif	/* OPTIMISEE_HPP */
 
